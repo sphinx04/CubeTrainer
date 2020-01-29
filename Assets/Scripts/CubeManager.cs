@@ -17,6 +17,13 @@ public class CubeManager : MonoBehaviour
             return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == 0);
         }
     }
+    List<GameObject> MidEPieces
+    {
+        get
+        {
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == -1);
+        }
+    }
     List<GameObject> DownPieces
     {
         get
@@ -29,6 +36,13 @@ public class CubeManager : MonoBehaviour
         get
         {
             return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == 0);
+        }
+    }
+    List<GameObject> MidSPieces
+    {
+        get
+        {
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == -1);
         }
     }
     List<GameObject> BackPieces
@@ -45,6 +59,13 @@ public class CubeManager : MonoBehaviour
             return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 0);
         }
     }
+    List<GameObject> MidMPieces
+    {
+        get
+        {
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == -1);
+        }
+    }
     List<GameObject> RightPieces
     {
         get
@@ -52,6 +73,7 @@ public class CubeManager : MonoBehaviour
             return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 2);
         }
     }
+
 
     void Start()
     {
@@ -62,8 +84,9 @@ public class CubeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canRotate)
-            CheckInput();
+        //if (canRotate)
+        //    CheckInput();
+        //Debug.Log(canRotate);
     }
 
     void CreateCube()
@@ -101,49 +124,205 @@ public class CubeManager : MonoBehaviour
             RotBack();
     }
 
-    IEnumerator Rotate(List<GameObject> pieces, Vector3 rotationVec)
+    IEnumerator Rotate(List<GameObject> pieces, Vector3 rotationVec, int count = 1, int speed = 5)
     {
         canRotate = false;
         int angle = 0;
 
-        while(angle < 90)
+        while (angle < 90 * count)
         {
             foreach (GameObject go in pieces)
-                go.transform.RotateAround(CubeCenterPiece.transform.position, rotationVec, 5);
-            angle += 5;
+                go.transform.RotateAround(CubeCenterPiece.transform.position, rotationVec, speed);
+            angle += speed;
             yield return null;
         }
         canRotate = true;
     }
 
-    public void RotUp()
+    public IEnumerator SolveCube(string[] sides)
     {
-        if(canRotate)
-            StartCoroutine(Rotate(UpPieces, new Vector3(0, 1, 0)));
+        foreach (string side in sides)
+        {
+            TurnSide(side);
+            //canRotate = false;
+            //yield return new WaitForSeconds(1f);
+            yield return new WaitUntil(() => canRotate);
+
+            //canRotate = true;
+        }
     }
-    public void RotDown()
+
+    public void RotUp(int dir = 1)
     {
-        if(canRotate)
-            StartCoroutine(Rotate(DownPieces, new Vector3(0, -1, 0)));
+        if (canRotate)
+            StartCoroutine(Rotate(UpPieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)));
     }
-    public void RotLeft()
+    public void RotMidE(int dir = 1)
     {
-        if(canRotate)
-            StartCoroutine(Rotate(LeftPieces, new Vector3(0, 0, -1)));
+        if (canRotate)
+            StartCoroutine(Rotate(MidEPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
     }
-    public void RotRight()
+    public void RotDown(int dir = 1)
     {
-        if(canRotate)
-            StartCoroutine(Rotate(RightPieces, new Vector3(0, 0, 1)));
+        if (canRotate)
+            StartCoroutine(Rotate(DownPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
     }
-    public void RotFront()
+    public void RotLeft(int dir = 1)
     {
-        if(canRotate)
-            StartCoroutine(Rotate(FrontPieces, new Vector3(1, 0, 0)));
+        if (canRotate)
+            StartCoroutine(Rotate(LeftPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
     }
-    public void RotBack()
+    public void RotMidM(int dir = 1)
     {
-        if(canRotate)
-            StartCoroutine(Rotate(BackPieces, new Vector3(-1, 0, 0)));
+        if (canRotate)
+            StartCoroutine(Rotate(MidMPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
+    }
+    public void RotRight(int dir = 1)
+    {
+        if (canRotate)
+            StartCoroutine(Rotate(RightPieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)));
+    }
+    public void RotFront(int dir = 1)
+    {
+        if (canRotate)
+            StartCoroutine(Rotate(FrontPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+    }
+    public void RotMidS(int dir = 1)
+    {
+        if (canRotate)
+            StartCoroutine(Rotate(MidSPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+    }
+    public void RotBack(int dir = 1)
+    {
+        if (canRotate)
+            StartCoroutine(Rotate(BackPieces, new Vector3(-1 * dir, 0, 0), Mathf.Abs(dir)));
+    }
+
+
+    public void TurnSide(string side)
+    {
+        switch (side)
+        {
+            case "U":
+                Debug.Log(side);
+                RotUp();
+                break;
+            case "U\'":
+                Debug.Log(side);
+                RotUp(-1);
+                break;
+            case "U2":
+                Debug.Log(side);
+                RotUp(2);
+                break;
+
+            case "D":
+                Debug.Log(side);
+                RotDown();
+                break;
+            case "D\'":
+                Debug.Log(side);
+                RotDown(-1);
+                break;
+            case "D2":
+                Debug.Log(side);
+                RotDown(2);
+                break;
+
+            case "L":
+                Debug.Log(side);
+                RotLeft();
+                break;
+            case "L\'":
+                Debug.Log(side);
+                RotLeft(-1);
+                break;
+            case "L2":
+                Debug.Log(side);
+                RotLeft(2);
+                break;
+
+            case "R":
+                Debug.Log(side);
+                RotRight();
+                break;
+            case "R\'":
+                Debug.Log(side);
+                RotRight(-1);
+                break;
+            case "R2":
+                Debug.Log(side);
+                RotRight(2);
+                break;
+
+            case "F":
+                Debug.Log(side);
+                RotFront();
+                break;
+            case "F\'":
+                Debug.Log(side);
+                RotFront(-1);
+                break;
+            case "F2":
+                Debug.Log(side);
+                RotFront(2);
+                break;
+
+            case "B":
+                Debug.Log(side);
+                RotBack();
+                break;
+            case "B\'":
+                Debug.Log(side);
+                RotBack(-1);
+                break;
+            case "B2":
+                Debug.Log(side);
+                RotBack(2);
+                break;
+
+            case "E":
+                Debug.Log(side);
+                RotMidE();
+                break;
+            case "E\'":
+                Debug.Log(side);
+                RotMidE(-1);
+                break;
+            case "E2":
+                Debug.Log(side);
+                RotMidE(2);
+                break;
+
+            case "M":
+                Debug.Log(side);
+                RotMidM();
+                break;
+            case "M\'":
+                Debug.Log(side);
+                RotMidM(-1);
+                break;
+            case "M2":
+                Debug.Log(side);
+                RotMidM(2);
+                break;
+
+            case "S":
+                Debug.Log(side);
+                RotMidS();
+                break;
+            case "S\'":
+                Debug.Log(side);
+                RotMidS(-1);
+                break;
+            case "S2":
+                Debug.Log(side);
+                RotMidS(2);
+                break;
+
+            default:
+                Debug.Log("DEFAULT " + side);
+                break;
+        }
     }
 }

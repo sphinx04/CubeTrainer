@@ -16,13 +16,13 @@ public class CubePieceScr : MonoBehaviour
             DownPlane.SetActive(true);
 
         if (z == 0)
-            LeftPlane.SetActive(true);
+            BackPlane.SetActive(true);
         else if (z == 2)
-            RightPlane.SetActive(true);
+            FrontPlane.SetActive(true);
 
         if (x == 0)
-            FrontPlane.SetActive(true);
+            LeftPlane.SetActive(true);
         else if (x == -2)
-            BackPlane.SetActive(true);
+            RightPlane.SetActive(true);
     }
 }

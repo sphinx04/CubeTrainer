@@ -10,7 +10,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
-        localRotation.x = 135f / speed;
+        localRotation.x = 225f / speed;
         localRotation.y = 30f / speed;
     }
 
