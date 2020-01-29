@@ -87,6 +87,7 @@ public class CubeManager : MonoBehaviour
         //if (canRotate)
         //    CheckInput();
         //Debug.Log(canRotate);
+        Debug.Log(transform.rotation.eulerAngles);
     }
 
     void CreateCube()
@@ -132,7 +133,11 @@ public class CubeManager : MonoBehaviour
         while (angle < 90 * count)
         {
             foreach (GameObject go in pieces)
-                go.transform.RotateAround(CubeCenterPiece.transform.position, rotationVec, speed);
+            {
+                go.transform.RotateAround(CubeCenterPiece.transform.position + transform.parent.position, transform.rotation * rotationVec, speed);
+            }
+
+
             angle += speed;
             yield return null;
         }

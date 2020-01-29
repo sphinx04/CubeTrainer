@@ -1,0 +1,4 @@
+#Wed Jan 29 23:19:04 MSK 2020
+base.0=/Users/mnatsakan/Projects/Unity/CubeTrainer/Temp/gradleOut/launcher/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex
