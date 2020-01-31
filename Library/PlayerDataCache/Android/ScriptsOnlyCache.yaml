@@ -3,8 +3,9 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - CameraMovement
     - CubeManager
-    - CubePieceScr
+    - FPSDisplay
     - GetScramble
+    - MeshCombiner
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     UnityEditor.TestRunner.dll:
@@ -70,9 +71,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12604}
     - Class: 114
-      Script: {instanceID: 12700}
-    - Class: 114
       Script: {instanceID: 12894}
+    - Class: 114
+      Script: {instanceID: 97048}
+    - Class: 114
+      Script: {instanceID: 286194}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -414,7 +417,7 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
-      Hash: 054bd73c0ebe2e93257b536a5a3afa74
+      Hash: be388cc84df934bfe17e37a0a1cead48
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraMovement
@@ -532,6 +535,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FPSDisplay
+  - hash:
+      serializedVersion: 2
+      Hash: f533629b804a0d04aff0c1f88f55bd4d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MeshCombiner
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

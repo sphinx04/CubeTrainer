@@ -6,18 +6,25 @@ public class CameraMovement : MonoBehaviour
 {
     public Rigidbody rb;
     public float rotationSpeed = 100f;
-    bool dragging = false;
+    public bool dragging = false;
+    public bool onCube = false;
 
     private void OnMouseDrag()
     {
-        dragging = true;
+        dragging = false;
+        onCube = true;
     }
 
     private void Update()
     {
+        if (Input.GetMouseButton(0) && !onCube)
+        {
+            dragging = true;
+        }
         if (Input.GetMouseButtonUp(0))
         {
             dragging = false;
+            onCube = false;
         }
     }
 

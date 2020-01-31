@@ -9,7 +9,7 @@ public class GetScramble : MonoBehaviour
 
 public void SendToScrumble()
     {
-        string[] moves = text.text.Split(' ');
-        StartCoroutine(cube.GetComponent<CubeManager>().SolveCube(moves));
+        string[] moves = text.text.ToUpper().Split(' ');
+        StartCoroutine(cube.GetComponent<CubeManager>().TurnFromScramble(moves));
     }
 }

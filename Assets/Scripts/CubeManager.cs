@@ -5,127 +5,112 @@ using UnityEngine;
 public class CubeManager : MonoBehaviour
 {
     public GameObject CubePievePref;
-    Transform CubeTransf;
     List<GameObject> AllCubePieces = new List<GameObject>();
     GameObject CubeCenterPiece;
     bool canRotate = true;
+    Quaternion to;
+    bool turnToDefault = false;
+
+
+    #region Side Definition
 
     List<GameObject> UpPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == 0);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == 1);
         }
     }
     List<GameObject> MidEPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == -1);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == 0);
         }
     }
     List<GameObject> DownPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == -2);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == -1);
         }
     }
     List<GameObject> FrontPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == 0);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == 1);
         }
     }
     List<GameObject> MidSPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == -1);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == 0);
         }
     }
     List<GameObject> BackPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == -2);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == -1);
         }
     }
     List<GameObject> LeftPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 0);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == -1);
         }
     }
     List<GameObject> MidMPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == -1);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 0);
         }
     }
     List<GameObject> RightPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 2);
+            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 1);
         }
     }
 
+    #endregion
 
     void Start()
     {
-        CubeTransf = transform;
-        CreateCube();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            AllCubePieces.Add(transform.GetChild(i).gameObject);
+        }
+        CubeCenterPiece = AllCubePieces[13];
+        to = transform.rotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //if (canRotate)
-        //    CheckInput();
-        //Debug.Log(canRotate);
-        Debug.Log(transform.rotation.eulerAngles);
+        float dist = Vector3.Distance(transform.rotation.eulerAngles, to.eulerAngles);
+
+        if (Mathf.Abs(dist) > 2f && turnToDefault)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, to, .1f);
+            GetComponent<CameraMovement>().dragging = false;
+        }
+        else
+        {
+            turnToDefault = false;
+        }
     }
 
-    void CreateCube()
+    public void TurnToDefault()
     {
-        foreach (GameObject go in AllCubePieces)
-            DestroyImmediate(go);
-
-        AllCubePieces.Clear();
-
-        for (int x = 0; x < 3; x++)
-            for (int y = 0; y < 3; y++)
-                for (int z = 0; z < 3; z++)
-                {
-                    GameObject go = Instantiate(CubePievePref, CubeTransf, false);
-                    go.transform.localPosition = new Vector3(-x, -y, z);
-                    go.GetComponent<CubePieceScr>().SetColor(-x, -y, z);
-                    AllCubePieces.Add(go);
-                }
-        CubeCenterPiece = AllCubePieces[13];
+        turnToDefault = true;
     }
 
-    void CheckInput()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-            RotUp();
-        else if (Input.GetKeyDown(KeyCode.S))
-            RotDown();
-        else if (Input.GetKeyDown(KeyCode.A))
-            RotLeft();
-        else if (Input.GetKeyDown(KeyCode.D))
-            RotRight();
-        else if (Input.GetKeyDown(KeyCode.F))
-            RotFront();
-        else if (Input.GetKeyDown(KeyCode.B))
-            RotBack();
-    }
-
-    IEnumerator Rotate(List<GameObject> pieces, Vector3 rotationVec, int count = 1, int speed = 5)
+    IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1, int speed = 5)
     {
         canRotate = false;
         int angle = 0;
@@ -136,78 +121,94 @@ public class CubeManager : MonoBehaviour
             {
                 go.transform.RotateAround(CubeCenterPiece.transform.position + transform.parent.position, transform.rotation * rotationVec, speed);
             }
-
-
             angle += speed;
             yield return null;
         }
         canRotate = true;
     }
 
-    public IEnumerator SolveCube(string[] sides)
+    public IEnumerator TurnFromScramble(string[] sides)
     {
         foreach (string side in sides)
         {
             TurnSide(side);
-            //canRotate = false;
-            //yield return new WaitForSeconds(1f);
             yield return new WaitUntil(() => canRotate);
 
             //canRotate = true;
         }
     }
 
+    #region Side Rotations
+
     public void RotUp(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(UpPieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(UpPieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)));
     }
     public void RotMidE(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(MidEPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(MidEPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
     }
     public void RotDown(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(DownPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(DownPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
     }
     public void RotLeft(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(LeftPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(LeftPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
     }
     public void RotMidM(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(MidMPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(MidMPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
     }
     public void RotRight(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(RightPieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(RightPieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)));
     }
     public void RotFront(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(FrontPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(FrontPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
     }
     public void RotMidS(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(MidSPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(MidSPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
     }
     public void RotBack(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(Rotate(BackPieces, new Vector3(-1 * dir, 0, 0), Mathf.Abs(dir)));
+            StartCoroutine(RotateSide(BackPieces, new Vector3(-1 * dir, 0, 0), Mathf.Abs(dir)));
     }
 
+    public void RotX(int dir = 1)
+    {
+        if (canRotate)
+            StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)));
+    }
+    public void RotY(int dir = 1)
+    {
+        if (canRotate)
+            StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)));
+    }
+    public void RotZ(int dir = 1)
+    {
+        if (canRotate)
+            StartCoroutine(RotateSide(AllCubePieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+    }
+
+#endregion
 
     public void TurnSide(string side)
     {
         switch (side)
         {
+
             case "U":
                 Debug.Log(side);
                 RotUp();
@@ -323,6 +324,45 @@ public class CubeManager : MonoBehaviour
             case "S2":
                 Debug.Log(side);
                 RotMidS(2);
+                break;
+
+            case "X":
+                Debug.Log(side);
+                RotX();
+                break;
+            case "X\'":
+                Debug.Log(side);
+                RotX(-1);
+                break;
+            case "X2":
+                Debug.Log(side);
+                RotX(2);
+                break;
+
+            case "Y":
+                Debug.Log(side);
+                RotY();
+                break;
+            case "Y\'":
+                Debug.Log(side);
+                RotY(-1);
+                break;
+            case "Y2":
+                Debug.Log(side);
+                RotY(2);
+                break;
+
+            case "Z":
+                Debug.Log(side);
+                RotZ();
+                break;
+            case "Z\'":
+                Debug.Log(side);
+                RotZ(-1);
+                break;
+            case "Z2":
+                Debug.Log(side);
+                RotZ(2);
                 break;
 
             default:

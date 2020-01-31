@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Jan 29 23:19:04 MSK 2020
+#Fri Jan 31 17:15:07 MSK 2020
 60.set=ASSET
 52.set=ASSET
 53.base=/Users/mnatsakan/Projects/Unity/CubeTrainer/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
