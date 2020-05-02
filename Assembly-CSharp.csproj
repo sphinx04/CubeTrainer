@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\DetectSide.cs" />
     <Compile Include="Assets\MeshCombiner\Scripts\MeshCombiner.cs" />
+    <Compile Include="Assets\PresetScript.cs" />
     <Compile Include="Assets\SIdeControlCube.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\CubeManager.cs" />

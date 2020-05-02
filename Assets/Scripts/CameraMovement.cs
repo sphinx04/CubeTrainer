@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    public CubeManager manager;
     public Rigidbody rb;
     public float rotationSpeed = 100f;
-    public bool dragging = false;
+    public bool dragging;
     public bool onCube = false;
+    public bool swipeControl;
+    Vector2 firstPressPos;
+    Vector2 secondPressPos;
+    Vector2 currentSwipe;
 
     //private void OnMouseDrag()
     //{
     //    dragging = true;
     //    onCube = true;
     //}
+
+    private void Start()
+    {
+        swipeControl = true;
+    }
 
     private void Update()
     {
@@ -28,21 +38,88 @@ public class CameraMovement : MonoBehaviour
                 Debug.Log(hit.collider.gameObject.name);
             }
 
-            if (!onCube)
+            else 
             {
                 dragging = true;
+                firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                Debug.Log(firstPressPos);
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
+            if (dragging && swipeControl)
+            {
+                secondPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                Debug.Log(secondPressPos);
+                currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+                currentSwipe.Normalize();
+                if (LeftSwipe(currentSwipe))
+                {
+                    manager.RotY(1);
+                }
+                else if (RightSwipe(currentSwipe))
+                {
+                    manager.RotY(-1);
+                }
+                else if (UpLeftSwipe(currentSwipe))
+                {
+                    manager.RotZ(-1);
+                }
+                else if (UpRightSwipe(currentSwipe))
+                {
+                    manager.RotX(1);
+                }
+                else if (DownLeftSwipe(currentSwipe))
+                {
+                    manager.RotX(-1);
+                }
+                else if (DownRightSwipe(currentSwipe))
+                {
+                    manager.RotZ(1);
+                }
+
+            }
             dragging = false;
             onCube = false;
         }
     }
 
+    bool LeftSwipe(Vector2 swipe)
+    {
+        return currentSwipe.x < 0 && currentSwipe.y > -.5f && currentSwipe.y < .5f;
+    }
+
+    bool RightSwipe(Vector2 swipe)
+    {
+        return currentSwipe.x > 0 && currentSwipe.y > -.5f && currentSwipe.y < .5f;
+    }
+    bool UpLeftSwipe(Vector2 swipe)
+    {
+        return currentSwipe.x < 0 && currentSwipe.y > 0;
+    }
+    bool UpRightSwipe(Vector2 swipe)
+    {
+        return currentSwipe.x > 0 && currentSwipe.y > 0;
+    }
+
+    bool DownLeftSwipe(Vector2 swipe)
+    {
+        return currentSwipe.x < 0 && currentSwipe.y < 0;
+    }
+    bool DownRightSwipe(Vector2 swipe)
+    {
+        return currentSwipe.x > 0 && currentSwipe.y < 0;
+    }
+
+
+    public void SetSwipeControl(bool swipeControl)
+    {
+        this.swipeControl = swipeControl;
+    }
+
     private void FixedUpdate()
     {
-        if (dragging && !onCube)
+        if (dragging && !onCube && !swipeControl)
         {
             float x = Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
             float y = Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
