@@ -9,7 +9,7 @@ public class CubeManager : MonoBehaviour
     GameObject CubeCenterPiece;
     bool canRotate = true;
     Quaternion to;
-    bool turnToDefault = false;
+    bool turnToDefault;
 
 
     #region Side Definition
@@ -82,9 +82,16 @@ public class CubeManager : MonoBehaviour
 
     void Start()
     {
+        GameObject piece;
         for (int i = 0; i < transform.childCount; i++)
         {
-            AllCubePieces.Add(transform.GetChild(i).gameObject);
+            if (transform.GetChild(i).gameObject.tag == "Piece")
+            {
+                piece = transform.GetChild(i).gameObject;
+                AllCubePieces.Add(piece);
+                piece.GetComponent<CubePieceScr>().SetColor((int)piece.transform.localPosition.x, (int)piece.transform.localPosition.y, (int)piece.transform.localPosition.z);
+
+            }
         }
         CubeCenterPiece = AllCubePieces[13];
         to = transform.rotation;
@@ -110,6 +117,12 @@ public class CubeManager : MonoBehaviour
         turnToDefault = true;
     }
 
+    public void Reset()
+    {
+        //UnityEditor.PrefabUtility.ResetToPrefabState(this.gameObject);
+        //UnityEditor.PrefabUtility.RevertObjectOverride(this.gameObject, );
+    }
+
     IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1, int speed = 5)
     {
         canRotate = false;
@@ -119,7 +132,7 @@ public class CubeManager : MonoBehaviour
         {
             foreach (GameObject go in pieces)
             {
-                go.transform.RotateAround(CubeCenterPiece.transform.position + transform.parent.position, transform.rotation * rotationVec, speed);
+                go.transform.RotateAround(CubeCenterPiece.transform.position /* + transform.parent.position */, transform.rotation * rotationVec, speed);
             }
             angle += speed;
             yield return null;

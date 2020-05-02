@@ -9,17 +9,29 @@ public class CameraMovement : MonoBehaviour
     public bool dragging = false;
     public bool onCube = false;
 
-    private void OnMouseDrag()
-    {
-        dragging = false;
-        onCube = true;
-    }
+    //private void OnMouseDrag()
+    //{
+    //    dragging = true;
+    //    onCube = true;
+    //}
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && !onCube)
-        {
-            dragging = true;
+        if (Input.GetMouseButtonDown(0))
+            {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit, 100))
+            {
+                onCube = true;
+                Debug.Log(hit.collider.gameObject.name);
+            }
+
+            if (!onCube)
+            {
+                dragging = true;
+            }
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -30,7 +42,7 @@ public class CameraMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (dragging)
+        if (dragging && !onCube)
         {
             float x = Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
             float y = Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;

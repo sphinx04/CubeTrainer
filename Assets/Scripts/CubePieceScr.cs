@@ -10,19 +10,19 @@ public class CubePieceScr : MonoBehaviour
 
     public void SetColor(int x, int y, int z)
     {
-        if (y == 0)
+        if (y == 1)
             UpPlane.SetActive(true);
-        else if (y == -2)
+        else if (y == -1)
             DownPlane.SetActive(true);
 
-        if (z == 0)
-            BackPlane.SetActive(true);
-        else if (z == 2)
-            FrontPlane.SetActive(true);
-
-        if (x == 0)
+        if (z == 1)
             LeftPlane.SetActive(true);
-        else if (x == -2)
+        else if (z == -1)
             RightPlane.SetActive(true);
+
+        if (x == 1)
+            BackPlane.SetActive(true);
+        else if (x == -1)
+            FrontPlane.SetActive(true);
     }
 }
