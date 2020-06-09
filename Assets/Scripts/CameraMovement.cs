@@ -35,14 +35,15 @@ public class CameraMovement : MonoBehaviour
             if(Physics.Raycast(ray, out hit, 100))
             {
                 onCube = true;
-                Debug.Log(hit.collider.gameObject.name);
+                dragging = false;
+                //Debug.Log(hit.collider.gameObject.name + "ray");
             }
 
             else 
             {
                 dragging = true;
                 firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                Debug.Log(firstPressPos);
+                //Debug.Log(firstPressPos);
             }
         }
         if (Input.GetMouseButtonUp(0))
@@ -50,7 +51,7 @@ public class CameraMovement : MonoBehaviour
             if (dragging && swipeControl)
             {
                 secondPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                Debug.Log(secondPressPos);
+                //Debug.Log(secondPressPos);
                 currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
                 currentSwipe.Normalize();
                 if (LeftSwipe(currentSwipe))
@@ -82,6 +83,11 @@ public class CameraMovement : MonoBehaviour
             dragging = false;
             onCube = false;
         }
+    }
+
+    public void SetDragging(bool dragging)
+    {
+        this.dragging = dragging;
     }
 
     bool LeftSwipe(Vector2 swipe)

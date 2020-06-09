@@ -8,8 +8,11 @@ public class CubeManager : MonoBehaviour
     List<GameObject> AllCubePieces = new List<GameObject>();
     GameObject CubeCenterPiece;
     bool canRotate = true;
-    Quaternion to;
+    Quaternion defaultRotation;
     bool turnToDefault;
+
+    public int defaultRotationSpeed = 10;
+    int currentRotationSpeed;
 
 
     #region Side Definition
@@ -94,16 +97,22 @@ public class CubeManager : MonoBehaviour
             }
         }
         CubeCenterPiece = AllCubePieces[13];
-        to = transform.rotation;
+        defaultRotation = transform.rotation;
+        currentRotationSpeed = defaultRotationSpeed;
     }
 
     void Update()
     {
-        float dist = Vector3.Distance(transform.rotation.eulerAngles, to.eulerAngles);
+        float dist = Vector3.Distance(transform.rotation.eulerAngles, defaultRotation.eulerAngles);
 
-        if (Mathf.Abs(dist) > 2f && turnToDefault)
+        if (canRotate)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, to, .1f);
+            //Debug.Log("defaultRotationSpeed = currentRotationSpeed");
+            defaultRotationSpeed = currentRotationSpeed;
+        }
+        if (Mathf.Abs(dist) > 2f && turnToDefault && canRotate)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, defaultRotation, .1f);
             GetComponent<CameraMovement>().dragging = false;
         }
         else
@@ -112,9 +121,91 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    public bool CheckSolved()
+    {
+        GameObject item = AllCubePieces[0];
+        bool solved = true;
+        float EPSILON = 0.1f;
+        for (int i = 1; i < 27; i++)
+        {
+            if (i == 4)
+            {
+                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
+            }
+            else if (i == 10)
+            {
+                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON;
+            }
+            else if (i == 12)
+            {
+                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
+            }
+            else if (i == 14)
+            {
+                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
+            }
+            else if (i == 16)
+            {
+                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON;
+            }
+            else if (i == 22)
+                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
+            else
+            {
+                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON &&
+                                   System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON;
+            }
+        }
+        //Debug.Log(item.transform.rotation);
+        //Debug.Log(solved);
+        //Debug.Log(AllCubePieces[4].transform.rotation.eulerAngles.x + ", " + AllCubePieces[4].transform.rotation.eulerAngles.y + ", " + AllCubePieces[4].transform.rotation.eulerAngles.z);
+        return solved;
+    }
+    public void SetCurrentRotationSpeed(int speed)
+    {
+        currentRotationSpeed = speed;
+    }
+    public void SetDefaultRotationSpeed(float speed)
+    {
+        switch ((int)speed)
+        {
+            case 0:
+                currentRotationSpeed = 2;
+                break;
+            case 1:
+                currentRotationSpeed = 5;
+                break;
+            case 2:
+                currentRotationSpeed = 10;
+                break;
+            case 3:
+                currentRotationSpeed = 15;
+                break;
+            case 4:
+                currentRotationSpeed = 30;
+                break;
+            case 90:
+                currentRotationSpeed = 90;
+                break;
+        }
+
+    }
+
     public void TurnToDefault()
     {
-        turnToDefault = true;
+        StartCoroutine(WaitUntilCanRotate());
+    }
+
+    public void SetCanRotate(bool canRotate)
+    {
+        this.canRotate = canRotate;
     }
 
     public void Reset()
@@ -123,21 +214,26 @@ public class CubeManager : MonoBehaviour
         //UnityEditor.PrefabUtility.RevertObjectOverride(this.gameObject, );
     }
 
-    IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1, int speed = 5)
+    IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1)
     {
-        canRotate = false;
-        int angle = 0;
+        SetCanRotate(false);
+        int angle = 0;    
 
         while (angle < 90 * count)
         {
             foreach (GameObject go in pieces)
             {
-                go.transform.RotateAround(CubeCenterPiece.transform.position /* + transform.parent.position */, transform.rotation * rotationVec, speed);
+                go.transform.RotateAround(CubeCenterPiece.transform.position, transform.rotation * rotationVec, defaultRotationSpeed);
             }
-            angle += speed;
+            angle += defaultRotationSpeed;
             yield return null;
         }
-        canRotate = true;
+        SetCanRotate(true);
+
+        if (CheckSolved())
+        {
+            Debug.Log("SOLVED");
+        }
     }
 
     public IEnumerator TurnFromScramble(string[] sides)
@@ -149,6 +245,20 @@ public class CubeManager : MonoBehaviour
 
             //canRotate = true;
         }
+    }
+
+    public void TurnFromDefaultScramble(string[] sides)
+    {
+        foreach (string side in sides)
+        {
+            TurnSide(side);
+        }
+    }
+
+    IEnumerator WaitUntilCanRotate()
+    {
+        yield return new WaitUntil(() => canRotate);
+        turnToDefault = true;
     }
 
     #region Side Rotations
@@ -223,163 +333,163 @@ public class CubeManager : MonoBehaviour
         {
 
             case "U":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotUp();
                 break;
             case "U\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotUp(-1);
                 break;
             case "U2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotUp(2);
                 break;
 
             case "D":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotDown();
                 break;
             case "D\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotDown(-1);
                 break;
             case "D2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotDown(2);
                 break;
 
             case "L":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotLeft();
                 break;
             case "L\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotLeft(-1);
                 break;
             case "L2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotLeft(2);
                 break;
 
             case "R":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotRight();
                 break;
             case "R\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotRight(-1);
                 break;
             case "R2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotRight(2);
                 break;
 
             case "F":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotFront();
                 break;
             case "F\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotFront(-1);
                 break;
             case "F2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotFront(2);
                 break;
 
             case "B":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotBack();
                 break;
             case "B\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotBack(-1);
                 break;
             case "B2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotBack(2);
                 break;
 
             case "E":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidE();
                 break;
             case "E\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidE(-1);
                 break;
             case "E2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidE(2);
                 break;
 
             case "M":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidM();
                 break;
             case "M\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidM(-1);
                 break;
             case "M2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidM(2);
                 break;
 
             case "S":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidS();
                 break;
             case "S\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidS(-1);
                 break;
             case "S2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotMidS(2);
                 break;
 
             case "X":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotX();
                 break;
             case "X\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotX(-1);
                 break;
             case "X2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotX(2);
                 break;
 
             case "Y":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotY();
                 break;
             case "Y\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotY(-1);
                 break;
             case "Y2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotY(2);
                 break;
 
             case "Z":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotZ();
                 break;
             case "Z\'":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotZ(-1);
                 break;
             case "Z2":
-                Debug.Log(side);
+                //Debug.Log(side);
                 RotZ(2);
                 break;
 
             default:
-                Debug.Log("DEFAULT " + side);
+                //Debug.Log("DEFAULT " + side);
                 break;
         }
     }

@@ -47,6 +47,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 306d9501082114f30bc2f270140ae6c1, type: 2}
+    - target: {fileID: 1415761780251060671, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415761780251060671, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415761780251060671, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1971679664107617690, guid: 99abbf2e690274be09839b0638a13799,
         type: 3}
       propertyPath: text

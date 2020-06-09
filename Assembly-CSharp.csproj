@@ -63,15 +63,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DetectSide.cs" />
+    <Compile Include="Assets\CubeSpawner.cs" />
     <Compile Include="Assets\MeshCombiner\Scripts\MeshCombiner.cs" />
-    <Compile Include="Assets\PresetScript.cs" />
-    <Compile Include="Assets\SIdeControlCube.cs" />
+    <Compile Include="Assets\Scenes\SwipeMenu.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\CubeManager.cs" />
     <Compile Include="Assets\Scripts\CubePieceScr.cs" />
+    <Compile Include="Assets\Scripts\DetectSide.cs" />
     <Compile Include="Assets\Scripts\FPSDisplay.cs" />
     <Compile Include="Assets\Scripts\GetScramble.cs" />
+    <Compile Include="Assets\Scripts\PresetScript.cs" />
+    <Compile Include="Assets\Scripts\SIdeControlCube.cs" />
+    <Compile Include="Assets\Scripts\SceneReloader.cs" />
+    <Compile Include="Assets\ToggleBackground.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -110,6 +114,9 @@
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>/Users/mnatsakan/Projects/Unity/CubeTrainer/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>/Users/mnatsakan/Projects/Unity/CubeTrainer/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>/Users/mnatsakan/Projects/Unity/CubeTrainer/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

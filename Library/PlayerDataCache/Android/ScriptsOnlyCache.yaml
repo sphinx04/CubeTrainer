@@ -4,11 +4,15 @@ ScriptsOnlyBuild:
     - CameraMovement
     - CubeManager
     - CubePieceScr
+    - CubeSpawner
     - DetectSide
     - FPSDisplay
     - GetScramble
-    - MeshCombiner
+    - PresetScript
     - SIdeControlCube
+    - SceneReloader
+    - SwipeMenu
+    - ToggleBackground
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
@@ -16,6 +20,13 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    - TMPro.TextMeshProUGUI
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -24,9 +35,15 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
     - UnityEngine.UI.InputField
+    - UnityEngine.UI.Mask
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
   sceneClasses:
@@ -53,6 +70,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 54
       Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
@@ -64,47 +83,69 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11156}
+      Script: {instanceID: 11178}
     - Class: 114
-      Script: {instanceID: 11188}
+      Script: {instanceID: 11214}
     - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11346}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11348}
     - Class: 114
-      Script: {instanceID: 11470}
+      Script: {instanceID: 11386}
     - Class: 114
-      Script: {instanceID: 11670}
+      Script: {instanceID: 11484}
     - Class: 114
-      Script: {instanceID: 11738}
+      Script: {instanceID: 11686}
     - Class: 114
-      Script: {instanceID: 11758}
+      Script: {instanceID: 11708}
     - Class: 114
-      Script: {instanceID: 11896}
+      Script: {instanceID: 11778}
     - Class: 114
-      Script: {instanceID: 12104}
+      Script: {instanceID: 11782}
     - Class: 114
-      Script: {instanceID: 12290}
+      Script: {instanceID: 11802}
     - Class: 114
-      Script: {instanceID: 12322}
+      Script: {instanceID: 11946}
     - Class: 114
-      Script: {instanceID: 12336}
+      Script: {instanceID: 11968}
     - Class: 114
-      Script: {instanceID: 12572}
+      Script: {instanceID: 12014}
     - Class: 114
-      Script: {instanceID: 12628}
+      Script: {instanceID: 12162}
     - Class: 114
-      Script: {instanceID: 12718}
+      Script: {instanceID: 12352}
     - Class: 114
-      Script: {instanceID: 12724}
+      Script: {instanceID: 12382}
     - Class: 114
-      Script: {instanceID: 12918}
+      Script: {instanceID: 12386}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12400}
     - Class: 114
-      Script: {instanceID: 12934}
+      Script: {instanceID: 12472}
     - Class: 114
-      Script: {instanceID: 101712}
+      Script: {instanceID: 12590}
+    - Class: 114
+      Script: {instanceID: 12650}
+    - Class: 114
+      Script: {instanceID: 12706}
+    - Class: 114
+      Script: {instanceID: 12806}
+    - Class: 114
+      Script: {instanceID: 12812}
+    - Class: 114
+      Script: {instanceID: 13006}
+    - Class: 114
+      Script: {instanceID: 13012}
+    - Class: 114
+      Script: {instanceID: 13022}
+    - Class: 114
+      Script: {instanceID: 13038}
+    - Class: 114
+      Script: {instanceID: 68178}
+    - Class: 114
+      Script: {instanceID: 132362}
+    - Class: 114
+      Script: {instanceID: 1028618}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -134,7 +175,7 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
-      Hash: 0a459a348974458502b4469baa6db2ac
+      Hash: 24b77498ab4996aa60a83564faa53109
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CubeManager
@@ -296,6 +337,12 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
+      Hash: c153ed0a9ad248367d99870a5763e6ee
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SIdeControlCube
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -348,6 +395,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalTrack
+  - hash:
+      serializedVersion: 2
+      Hash: a6e3b6f533d89e6e876029497083c7a6
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ToggleBackground
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -432,6 +485,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: TimelineAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 4d46fb4a01288a00e07d454931f7c37b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PresetScript
   - hash:
       serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
@@ -584,10 +643,22 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: c153ed0a9ad248367d99870a5763e6ee
+      Hash: eeada4f3f879474a79ee0417aab9f61c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: SIdeControlCube
+    className: SwipeMenu
+  - hash:
+      serializedVersion: 2
+      Hash: 88b51da0fe06c9d7c3c411d394e15b64
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CubeSpawner
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SceneReloader
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
