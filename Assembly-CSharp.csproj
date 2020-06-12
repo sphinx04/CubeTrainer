@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\CubeSpawner.cs" />
     <Compile Include="Assets\MeshCombiner\Scripts\MeshCombiner.cs" />
+    <Compile Include="Assets\ReadCubeState.cs" />
     <Compile Include="Assets\Scenes\SwipeMenu.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\CubeManager.cs" />

@@ -13,6 +13,7 @@ public class CubeManager : MonoBehaviour
 
     public int defaultRotationSpeed = 10;
     int currentRotationSpeed;
+    public ReadCubeState RCS;
 
 
     #region Side Definition
@@ -99,6 +100,7 @@ public class CubeManager : MonoBehaviour
         CubeCenterPiece = AllCubePieces[13];
         defaultRotation = transform.rotation;
         currentRotationSpeed = defaultRotationSpeed;
+
     }
 
     void Update()
@@ -119,55 +121,9 @@ public class CubeManager : MonoBehaviour
         {
             turnToDefault = false;
         }
+
     }
 
-    public bool CheckSolved()
-    {
-        GameObject item = AllCubePieces[0];
-        bool solved = true;
-        float EPSILON = 0.1f;
-        for (int i = 1; i < 27; i++)
-        {
-            if (i == 4)
-            {
-                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
-            }
-            else if (i == 10)
-            {
-                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON;
-            }
-            else if (i == 12)
-            {
-                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
-            }
-            else if (i == 14)
-            {
-                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
-            }
-            else if (i == 16)
-            {
-                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON;
-            }
-            else if (i == 22)
-                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON;
-            else
-            {
-                solved = solved && System.Math.Abs(item.transform.rotation.eulerAngles.x - AllCubePieces[i].transform.rotation.eulerAngles.x) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.y - AllCubePieces[i].transform.rotation.eulerAngles.y) < EPSILON &&
-                                   System.Math.Abs(item.transform.rotation.eulerAngles.z - AllCubePieces[i].transform.rotation.eulerAngles.z) < EPSILON;
-            }
-        }
-        //Debug.Log(item.transform.rotation);
-        //Debug.Log(solved);
-        //Debug.Log(AllCubePieces[4].transform.rotation.eulerAngles.x + ", " + AllCubePieces[4].transform.rotation.eulerAngles.y + ", " + AllCubePieces[4].transform.rotation.eulerAngles.z);
-        return solved;
-    }
     public void SetCurrentRotationSpeed(int speed)
     {
         currentRotationSpeed = speed;
@@ -230,10 +186,16 @@ public class CubeManager : MonoBehaviour
         }
         SetCanRotate(true);
 
-        if (CheckSolved())
+        //if (CheckSolved())
+        //{
+        //    Debug.Log("SOLVED");
+        //}
+
+        if (RCS.IsSolved())
         {
             Debug.Log("SOLVED");
         }
+
     }
 
     public IEnumerator TurnFromScramble(string[] sides)

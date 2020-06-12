@@ -2729,6 +2729,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1795904120735686650, guid: bdfbf2d6e76ef4512bee00631d0b1dde,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795904120735686650, guid: bdfbf2d6e76ef4512bee00631d0b1dde,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1795904120942306763, guid: bdfbf2d6e76ef4512bee00631d0b1dde,
         type: 3}
       propertyPath: m_LocalRotation.y

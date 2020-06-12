@@ -9,8 +9,6 @@ public class SIdeControlCube : MonoBehaviour
     List<GameObject> AllCubePieces = new List<GameObject>();
     List<GameObject> pieces = new List<GameObject>();
     List<GameObject> planes = new List<GameObject>();
-    Vector2 firstPressPos;
-    Vector2 secondPressPos;
     Vector2 currentSwipe;
 
     #region Side Definition
