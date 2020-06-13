@@ -34,7 +34,7 @@ public class ReadCubeState : MonoBehaviour
         foreach (Transform tSide in tPoses)
         {
             solved = solved && IsSideSolved(tSide);
-            print(IsSideSolved(tSide));
+            //print(IsSideSolved(tSide));
         }
         return solved;
     }
@@ -43,28 +43,38 @@ public class ReadCubeState : MonoBehaviour
     {
         List<GameObject> facesHit = new List<GameObject>();
         RaycastHit hit;
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < tSide.childCount; i++)
         {
-            Vector3 ray = tSide.GetChild(i).transform.position;
-            if (Physics.Raycast(ray, tSide.GetChild(i).right, out hit, Mathf.Infinity, layerMask))
+            //Если объект луча в иерархии не активен проверка не производится
+            if (tSide.GetChild(i).gameObject.activeInHierarchy)
             {
-                Debug.DrawRay(ray, tSide.GetChild(i).right * hit.distance, Color.yellow);
-                facesHit.Add(hit.collider.gameObject);
-                //print(hit.collider.gameObject.name);
+                Vector3 ray = tSide.GetChild(i).transform.position;
+                if (Physics.Raycast(ray, tSide.GetChild(i).right, out hit, Mathf.Infinity, layerMask))
+                {
+                    //Debug.DrawRay(ray, tSide.GetChild(i).right * hit.distance, Color.yellow);
+                    facesHit.Add(hit.collider.gameObject);
+                    //print(hit.collider.gameObject.name);
+                }
+                else
+                {
+                    Debug.DrawRay(ray, tSide.GetChild(i).right * 1000, Color.green);
+                }
             }
-            else
-            {
-                Debug.DrawRay(ray, tSide.GetChild(i).right * 1000, Color.green);
-            }
-
         }
-        return facesHit[0].name == facesHit[1].name &&
-               facesHit[0].name == facesHit[2].name &&
-               facesHit[0].name == facesHit[3].name &&
-               facesHit[0].name == facesHit[4].name &&
-               facesHit[0].name == facesHit[5].name &&
-               facesHit[0].name == facesHit[6].name &&
-               facesHit[0].name == facesHit[7].name &&
-               facesHit[0].name == facesHit[8].name;
+
+        bool solved = true;
+        for (int i = 0; i < facesHit.Count - 1; i++)
+        {
+            solved &= facesHit[facesHit.Count - 1].name == facesHit[i].name;
+        }
+        return solved;
+        //return facesHit[0].name == facesHit[1].name &&
+        //       facesHit[0].name == facesHit[2].name &&
+        //       facesHit[0].name == facesHit[3].name &&
+        //       facesHit[0].name == facesHit[4].name &&
+        //       facesHit[0].name == facesHit[5].name &&
+        //       facesHit[0].name == facesHit[6].name &&
+        //       facesHit[0].name == facesHit[7].name &&
+        //       facesHit[0].name == facesHit[8].name;
     }
 }

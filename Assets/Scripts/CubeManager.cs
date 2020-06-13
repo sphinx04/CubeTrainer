@@ -10,10 +10,12 @@ public class CubeManager : MonoBehaviour
     bool canRotate = true;
     Quaternion defaultRotation;
     bool turnToDefault;
+    bool isSolved = true;
 
     public int defaultRotationSpeed = 10;
     int currentRotationSpeed;
     public ReadCubeState RCS;
+    private float EPSILON = 0.001f;
 
 
     #region Side Definition
@@ -22,63 +24,63 @@ public class CubeManager : MonoBehaviour
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == 1);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y) - 1) < EPSILON);
         }
     }
     List<GameObject> MidEPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == 0);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y)) < EPSILON);
         }
     }
     List<GameObject> DownPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.y) == -1);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y) - -1) < EPSILON);
         }
     }
     List<GameObject> FrontPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == 1);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x) - 1) < EPSILON);
         }
     }
     List<GameObject> MidSPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == 0);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x)) < EPSILON);
         }
     }
     List<GameObject> BackPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.x) == -1);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x) - -1) < EPSILON);
         }
     }
     List<GameObject> LeftPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == -1);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z) - -1) < EPSILON);
         }
     }
     List<GameObject> MidMPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 0);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z)) < EPSILON);
         }
     }
     List<GameObject> RightPieces
     {
         get
         {
-            return AllCubePieces.FindAll(x => Mathf.Round(x.transform.localPosition.z) == 1);
+            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z) - 1) < EPSILON);
         }
     }
 
@@ -93,7 +95,7 @@ public class CubeManager : MonoBehaviour
             {
                 piece = transform.GetChild(i).gameObject;
                 AllCubePieces.Add(piece);
-                piece.GetComponent<CubePieceScr>().SetColor((int)piece.transform.localPosition.x, (int)piece.transform.localPosition.y, (int)piece.transform.localPosition.z);
+                //piece.GetComponent<CubePieceScr>().SetColor((int)piece.transform.localPosition.x, (int)piece.transform.localPosition.y, (int)piece.transform.localPosition.z);
 
             }
         }
@@ -180,21 +182,19 @@ public class CubeManager : MonoBehaviour
             foreach (GameObject go in pieces)
             {
                 go.transform.RotateAround(CubeCenterPiece.transform.position, transform.rotation * rotationVec, defaultRotationSpeed);
+                
             }
             angle += defaultRotationSpeed;
             yield return null;
         }
         SetCanRotate(true);
 
-        //if (CheckSolved())
-        //{
-        //    Debug.Log("SOLVED");
-        //}
-
-        if (RCS.IsSolved())
+        bool currSolved = RCS.IsSolved();
+        if (currSolved && !isSolved)
         {
             Debug.Log("SOLVED");
         }
+        isSolved = RCS.IsSolved();
 
     }
 
@@ -296,7 +296,7 @@ public class CubeManager : MonoBehaviour
 
             case "U":
                 //Debug.Log(side);
-                RotUp();
+                RotUp(1);
                 break;
             case "U\'":
                 //Debug.Log(side);
@@ -309,7 +309,7 @@ public class CubeManager : MonoBehaviour
 
             case "D":
                 //Debug.Log(side);
-                RotDown();
+                RotDown(1);
                 break;
             case "D\'":
                 //Debug.Log(side);
@@ -322,7 +322,7 @@ public class CubeManager : MonoBehaviour
 
             case "L":
                 //Debug.Log(side);
-                RotLeft();
+                RotLeft(1);
                 break;
             case "L\'":
                 //Debug.Log(side);
@@ -335,7 +335,7 @@ public class CubeManager : MonoBehaviour
 
             case "R":
                 //Debug.Log(side);
-                RotRight();
+                RotRight(1);
                 break;
             case "R\'":
                 //Debug.Log(side);
@@ -348,7 +348,7 @@ public class CubeManager : MonoBehaviour
 
             case "F":
                 //Debug.Log(side);
-                RotFront();
+                RotFront(1);
                 break;
             case "F\'":
                 //Debug.Log(side);
@@ -361,7 +361,7 @@ public class CubeManager : MonoBehaviour
 
             case "B":
                 //Debug.Log(side);
-                RotBack();
+                RotBack(1);
                 break;
             case "B\'":
                 //Debug.Log(side);
@@ -374,7 +374,7 @@ public class CubeManager : MonoBehaviour
 
             case "E":
                 //Debug.Log(side);
-                RotMidE();
+                RotMidE(1);
                 break;
             case "E\'":
                 //Debug.Log(side);
@@ -400,7 +400,7 @@ public class CubeManager : MonoBehaviour
 
             case "S":
                 //Debug.Log(side);
-                RotMidS();
+                RotMidS(1);
                 break;
             case "S\'":
                 //Debug.Log(side);
@@ -413,7 +413,7 @@ public class CubeManager : MonoBehaviour
 
             case "X":
                 //Debug.Log(side);
-                RotX();
+                RotX(1);
                 break;
             case "X\'":
                 //Debug.Log(side);
@@ -426,7 +426,7 @@ public class CubeManager : MonoBehaviour
 
             case "Y":
                 //Debug.Log(side);
-                RotY();
+                RotY(1);
                 break;
             case "Y\'":
                 //Debug.Log(side);
@@ -439,7 +439,7 @@ public class CubeManager : MonoBehaviour
 
             case "Z":
                 //Debug.Log(side);
-                RotZ();
+                RotZ(1);
                 break;
             case "Z\'":
                 //Debug.Log(side);

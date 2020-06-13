@@ -605,13 +605,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
   m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!4 &804640436 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8206266036822098796, guid: 3c82013ac8c8e44b7808c55a7473b6f9,
@@ -2289,6 +2289,7 @@ MonoBehaviour:
   CubePievePref: {fileID: 2767226381574232521, guid: 3c82013ac8c8e44b7808c55a7473b6f9,
     type: 3}
   defaultRotationSpeed: 0
+  RCS: {fileID: 0}
 --- !u!1001 &1526267890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3648,7 +3649,7 @@ PrefabInstance:
     - target: {fileID: 6398599012611453039, guid: 6d014c6cd005a4a79aa5b39e6d910158,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.00008341755
       objectReference: {fileID: 0}
     - target: {fileID: 6398599012729292886, guid: 6d014c6cd005a4a79aa5b39e6d910158,
         type: 3}

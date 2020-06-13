@@ -19,7 +19,7 @@ public class PresetScript : MonoBehaviour
     {
         string[] moves = text.ToUpper().Split(' ');
         yield return new WaitForSeconds(delay);
-        manager.defaultRotationSpeed = defaultSpeed;
+        manager.defaultRotationSpeed = 10;// defaultSpeed;
         StartCoroutine(manager.TurnFromScramble(moves));
         //manager.TurnFromDefaultScramble(moves);
         //yield return new WaitForSeconds(.5f);
