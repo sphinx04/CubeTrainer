@@ -16,6 +16,7 @@ public class CubeManager : MonoBehaviour
     int currentRotationSpeed;
     public ReadCubeState RCS;
     private float EPSILON = 0.001f;
+    public EmitParticle emitParticle;
 
 
     #region Side Definition
@@ -193,6 +194,7 @@ public class CubeManager : MonoBehaviour
         if (currSolved && !isSolved)
         {
             Debug.Log("SOLVED");
+            emitParticle.Emit(1);
         }
         isSolved = RCS.IsSolved();
 

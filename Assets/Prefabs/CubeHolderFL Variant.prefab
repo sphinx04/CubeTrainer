@@ -85,7 +85,7 @@ PrefabInstance:
     - target: {fileID: 1971679664107617690, guid: 99abbf2e690274be09839b0638a13799,
         type: 3}
       propertyPath: text
-      value: x x y
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2036489553213292894, guid: 99abbf2e690274be09839b0638a13799,
         type: 3}
