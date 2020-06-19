@@ -87,6 +87,11 @@ public class CubeManager : MonoBehaviour
 
     #endregion
 
+    void Awake()
+    {
+        SetDefaultRotationSpeed(PlayerPrefs.GetInt("speed"));
+    }
+
     void Start()
     {
         GameObject piece;
@@ -133,6 +138,7 @@ public class CubeManager : MonoBehaviour
     }
     public void SetDefaultRotationSpeed(float speed)
     {
+        PlayerPrefs.SetInt("speed", (int)speed);
         switch ((int)speed)
         {
             case 0:

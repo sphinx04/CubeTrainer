@@ -1823,6 +1823,7 @@ MonoBehaviour:
     type: 3}
   defaultRotationSpeed: 10
   RCS: {fileID: 2716299605796491690}
+  emitParticle: {fileID: 0}
 --- !u!54 &7570223538288146173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6975,6 +6976,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337895773437259147, guid: 85d34eaf639ad49a799174bd22f42933,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RotMidS
       objectReference: {fileID: 0}
     - target: {fileID: 2427799699755118002, guid: 85d34eaf639ad49a799174bd22f42933,
         type: 3}
