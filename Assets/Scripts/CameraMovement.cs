@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
-        swipeControl = true;
+        swipeControl = PlayerPrefs.GetInt("Free Rotation", 1) == 1;
     }
 
     private void Update()
@@ -116,7 +116,6 @@ public class CameraMovement : MonoBehaviour
     {
         return currentSwipe.x > 0 && currentSwipe.y < 0;
     }
-
 
     public void SetSwipeControl(bool swipeControl)
     {

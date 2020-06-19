@@ -12,7 +12,7 @@ public class CubeManager : MonoBehaviour
     bool turnToDefault;
     bool isSolved = true;
 
-    public int defaultRotationSpeed = 10;
+    public int defaultRotationSpeed;
     int currentRotationSpeed;
     public ReadCubeState RCS;
     private float EPSILON = 0.001f;
@@ -87,10 +87,11 @@ public class CubeManager : MonoBehaviour
 
     #endregion
 
-    void Awake()
-    {
-        SetDefaultRotationSpeed(PlayerPrefs.GetInt("speed"));
-    }
+    //void Awake()
+    //{
+    //    SetDefaultRotationSpeed(PlayerPrefs.GetInt("speed"));
+    //    print(PlayerPrefs.GetInt("speed"));
+    //}
 
     void Start()
     {
@@ -107,7 +108,10 @@ public class CubeManager : MonoBehaviour
         }
         CubeCenterPiece = AllCubePieces[13];
         defaultRotation = transform.rotation;
-        currentRotationSpeed = defaultRotationSpeed;
+        //currentRotationSpeed = defaultRotationSpeed;
+
+        SetDefaultRotationSpeed(PlayerPrefs.GetInt("Speed"));
+        print(PlayerPrefs.GetInt("Speed"));
 
     }
 
@@ -138,7 +142,6 @@ public class CubeManager : MonoBehaviour
     }
     public void SetDefaultRotationSpeed(float speed)
     {
-        PlayerPrefs.SetInt("speed", (int)speed);
         switch ((int)speed)
         {
             case 0:
@@ -160,7 +163,6 @@ public class CubeManager : MonoBehaviour
                 currentRotationSpeed = 90;
                 break;
         }
-
     }
 
     public void TurnToDefault()
