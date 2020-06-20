@@ -866,7 +866,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5000, y: 5000, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -100}
 --- !u!1 &903108162321810592
 GameObject:
   m_ObjectHideFlags: 0
@@ -6641,6 +6641,7 @@ GameObject:
   - component: {fileID: 8044439098069467395}
   - component: {fileID: 6343053729998865482}
   - component: {fileID: 6641113388641915439}
+  - component: {fileID: 13516514519767766}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -6703,6 +6704,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!65 &13516514519767766
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913521160106610230}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6986820349352182205
 GameObject:
   m_ObjectHideFlags: 0

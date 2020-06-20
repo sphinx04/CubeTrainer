@@ -175,6 +175,11 @@ public class CubeManager : MonoBehaviour
         this.canRotate = canRotate;
     }
 
+    public bool GetCanRotate()
+    {
+        return canRotate;
+    }
+
     public void Reset()
     {
         //UnityEditor.PrefabUtility.ResetToPrefabState(this.gameObject);
@@ -214,7 +219,7 @@ public class CubeManager : MonoBehaviour
         {
             TurnSide(side);
             yield return new WaitUntil(() => canRotate);
-
+            print("scramble");
             //canRotate = true;
         }
     }
