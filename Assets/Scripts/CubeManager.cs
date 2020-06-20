@@ -219,7 +219,6 @@ public class CubeManager : MonoBehaviour
         {
             TurnSide(side);
             yield return new WaitUntil(() => canRotate);
-            print("scramble");
             //canRotate = true;
         }
     }

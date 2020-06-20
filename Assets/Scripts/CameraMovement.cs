@@ -54,27 +54,27 @@ public class CameraMovement : MonoBehaviour
                 //Debug.Log(secondPressPos);
                 currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
                 currentSwipe.Normalize();
-                if (LeftSwipe(currentSwipe))
+                if (LeftSwipe())
                 {
                     manager.RotY(1);
                 }
-                else if (RightSwipe(currentSwipe))
+                else if (RightSwipe())
                 {
                     manager.RotY(-1);
                 }
-                else if (UpLeftSwipe(currentSwipe))
+                else if (UpLeftSwipe())
                 {
                     manager.RotZ(-1);
                 }
-                else if (UpRightSwipe(currentSwipe))
+                else if (UpRightSwipe())
                 {
                     manager.RotX(1);
                 }
-                else if (DownLeftSwipe(currentSwipe))
+                else if (DownLeftSwipe())
                 {
                     manager.RotX(-1);
                 }
-                else if (DownRightSwipe(currentSwipe))
+                else if (DownRightSwipe())
                 {
                     manager.RotZ(1);
                 }
@@ -90,29 +90,29 @@ public class CameraMovement : MonoBehaviour
         this.dragging = dragging;
     }
 
-    bool LeftSwipe(Vector2 swipe)
+    bool LeftSwipe()
     {
         return currentSwipe.x < 0 && currentSwipe.y > -.5f && currentSwipe.y < .5f;
     }
 
-    bool RightSwipe(Vector2 swipe)
+    bool RightSwipe()
     {
         return currentSwipe.x > 0 && currentSwipe.y > -.5f && currentSwipe.y < .5f;
     }
-    bool UpLeftSwipe(Vector2 swipe)
+    bool UpLeftSwipe()
     {
         return currentSwipe.x < 0 && currentSwipe.y > 0;
     }
-    bool UpRightSwipe(Vector2 swipe)
+    bool UpRightSwipe()
     {
         return currentSwipe.x > 0 && currentSwipe.y > 0;
     }
 
-    bool DownLeftSwipe(Vector2 swipe)
+    bool DownLeftSwipe()
     {
         return currentSwipe.x < 0 && currentSwipe.y < 0;
     }
-    bool DownRightSwipe(Vector2 swipe)
+    bool DownRightSwipe()
     {
         return currentSwipe.x > 0 && currentSwipe.y < 0;
     }
