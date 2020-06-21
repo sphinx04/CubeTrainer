@@ -6,6 +6,7 @@ public class SIdeControlCube : MonoBehaviour
 {
     public CubeManager manager;
     public CameraMovement cm;
+    bool canRotate = true;
 
     List<GameObject> pieces = new List<GameObject>();
     List<GameObject> planes = new List<GameObject>();
@@ -31,11 +32,12 @@ public class SIdeControlCube : MonoBehaviour
                     pieces.Add(hit.collider.transform.parent.gameObject);
                     planes.Add(hit.collider.gameObject);
                 }
-                else if (pieces.Count == 2 && cm.onCube)
+                else if (pieces.Count == 2 && cm.onCube && canRotate)
                 {
                     DetectRotate();
                     pieces.Clear();
                     planes.Clear();
+                    canRotate = false;
                 }
             }
         }
@@ -43,6 +45,8 @@ public class SIdeControlCube : MonoBehaviour
         {
             pieces.Clear();
             planes.Clear();
+            canRotate = true;
+
         }
     }
 
