@@ -47,7 +47,6 @@ public class Timer : MonoBehaviour
                 text.text = "0" + time.ToString("F2");
             else
                 text.text = time.ToString("F2");
-            //print(time.ToString("F2"));
         }
     }
 }
