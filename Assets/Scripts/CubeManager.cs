@@ -11,6 +11,7 @@ public class CubeManager : MonoBehaviour
     Quaternion defaultRotation;
     bool turnToDefault;
     bool isSolved = true;
+    public bool isScrambled;
 
     public int defaultRotationSpeed;
     int currentRotationSpeed;
@@ -125,7 +126,7 @@ public class CubeManager : MonoBehaviour
             //Debug.Log("defaultRotationSpeed = currentRotationSpeed");
             defaultRotationSpeed = currentRotationSpeed;
         }
-        if (Mathf.Abs(dist) > 2f && turnToDefault && canRotate)
+        if (Mathf.Abs(dist) > .1f && turnToDefault && canRotate)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, defaultRotation, .1f);
             GetComponent<CameraMovement>().dragging = false;

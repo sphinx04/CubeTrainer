@@ -9,6 +9,7 @@ public class PresetScript : MonoBehaviour
     public float delay = 1f;
     public int defaultSpeed;
 
+
     //String arrays to hold the notations for each axis
     //and the scramble as a whole
     private string[] notation;
@@ -45,6 +46,8 @@ public class PresetScript : MonoBehaviour
         //manager.TurnFromDefaultScramble(moves);
         yield return new WaitUntil(() => manager.GetCanRotate());
         manager.SetCanRotate(false);
+        manager.isScrambled = true;
+        print("SCRAMBLED");
 
 
 
