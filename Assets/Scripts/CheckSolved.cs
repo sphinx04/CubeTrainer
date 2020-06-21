@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmitParticle : MonoBehaviour
+public class CheckSolved : MonoBehaviour
 {
     public List<GameObject> particles;
 

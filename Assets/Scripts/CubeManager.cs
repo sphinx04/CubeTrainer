@@ -16,7 +16,8 @@ public class CubeManager : MonoBehaviour
     int currentRotationSpeed;
     public ReadCubeState RCS;
     private float EPSILON = 0.001f;
-    public EmitParticle emitParticle;
+    public CheckSolved checkSolved;
+    public Timer timer;
 
 
     #region Side Definition
@@ -206,11 +207,18 @@ public class CubeManager : MonoBehaviour
         bool currSolved = RCS.IsSolved();
         if (currSolved && !isSolved)
         {
-            Debug.Log("SOLVED");
-            emitParticle.Emit(1);
+            CubeSolved();
         }
         isSolved = RCS.IsSolved();
 
+    }
+
+    public void CubeSolved()
+    {
+        checkSolved.Emit(1);
+        timer.PauseTimer();
+        timer.Disable();
+        SetCanRotate(false);
     }
 
     public IEnumerator TurnFromScramble(string[] sides)

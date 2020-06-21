@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 377e2f217b58347f7ac7eca7f13eb328
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Sicret Mono PERSONAL
+  fontNames:
+  - Sicret Mono PERSONAL
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 02176b520fadd4d4c8e6d6f9b9856d9d, type: 3}
+  - {fileID: 12800000, guid: 73acf347a195d4174885659cc541faa3, type: 3}
+  - {fileID: 12800000, guid: 63f577ca292a94f78ba8df32358e511e, type: 3}
+  - {fileID: 12800000, guid: 2561ea5cde9a44f68b6dd95549a83cbc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

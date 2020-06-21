@@ -44,7 +44,7 @@ public class PresetScript : MonoBehaviour
         StartCoroutine(manager.TurnFromScramble(moves));
         //manager.TurnFromDefaultScramble(moves);
         yield return new WaitUntil(() => manager.GetCanRotate());
-        //manager.SetCurrentRotationSpeed(10);
+        manager.SetCanRotate(false);
 
 
 
