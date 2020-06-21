@@ -89,12 +89,6 @@ public class CubeManager : MonoBehaviour
 
     #endregion
 
-    //void Awake()
-    //{
-    //    SetDefaultRotationSpeed(PlayerPrefs.GetInt("speed"));
-    //    print(PlayerPrefs.GetInt("speed"));
-    //}
-
     void Start()
     {
         GameObject piece;
@@ -113,7 +107,6 @@ public class CubeManager : MonoBehaviour
         //currentRotationSpeed = defaultRotationSpeed;
 
         SetDefaultRotationSpeed(PlayerPrefs.GetInt("Speed"));
-        print(PlayerPrefs.GetInt("Speed"));
 
     }
 
@@ -123,7 +116,6 @@ public class CubeManager : MonoBehaviour
 
         if (canRotate)
         {
-            //Debug.Log("defaultRotationSpeed = currentRotationSpeed");
             defaultRotationSpeed = currentRotationSpeed;
         }
         if (Mathf.Abs(dist) > .1f && turnToDefault && canRotate)
@@ -180,12 +172,6 @@ public class CubeManager : MonoBehaviour
     public bool GetCanRotate()
     {
         return canRotate;
-    }
-
-    public void Reset()
-    {
-        //UnityEditor.PrefabUtility.ResetToPrefabState(this.gameObject);
-        //UnityEditor.PrefabUtility.RevertObjectOverride(this.gameObject, );
     }
 
     IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1)
