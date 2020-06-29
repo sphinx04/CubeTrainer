@@ -14,27 +14,20 @@ public class Timer : MonoBehaviour
     {
         text = gameObject.GetComponent<TextMeshProUGUI>();
     }
-    public void StartTimer()
-    {
-        timerStarted = true;
-    }
-    public void PauseTimer()
-    {
-        timerStarted = false;
-    }
+    public void StartTimer() => timerStarted = true;
+
+    public void PauseTimer() => timerStarted = false;
+
+    public void Enable() => isEnabled = true;
+
+    public void Disable() => isEnabled = false;
+
+    public float GetTime() => time;
+
     public void StopTimer()
     {
         PauseTimer();
         time = 0f;
-    }
-
-    public void Enable()
-    {
-        isEnabled = true;
-    }
-    public void Disable()
-    {
-        isEnabled = false;
     }
 
     // Update is called once per frame

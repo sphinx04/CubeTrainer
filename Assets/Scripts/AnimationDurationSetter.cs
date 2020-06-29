@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationDurationSetter : MonoBehaviour
 {
-    public CubeManager manager;
+    public PresetScript presetScript;
     Animator animator;
     // Start is called before the first frame update
 
@@ -22,7 +22,7 @@ public class AnimationDurationSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (manager.isScrambled)
+        if (presetScript.IsScrambled)
         {
             ExitAnimation();
         }

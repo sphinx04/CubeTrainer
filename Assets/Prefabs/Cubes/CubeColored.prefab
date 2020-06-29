@@ -1762,7 +1762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7570223538288146162
 Transform:
   m_ObjectHideFlags: 0
@@ -1821,9 +1821,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CubePievePref: {fileID: 2767226381574232521, guid: 3c82013ac8c8e44b7808c55a7473b6f9,
     type: 3}
+  isScrambled: 0
   defaultRotationSpeed: 10
   RCS: {fileID: 2716299605796491690}
-  emitParticle: {fileID: 0}
+  checkSolved: {fileID: 0}
 --- !u!54 &7570223538288146173
 Rigidbody:
   m_ObjectHideFlags: 0

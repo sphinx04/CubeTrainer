@@ -13,7 +13,7 @@ public class PlayerPrefManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        slider.value = PlayerPrefs.GetInt("Speed");
+        slider.value = PlayerPrefs.GetInt("Speed", 2);
 
         ACToggle.isOn = PlayerPrefs.GetInt("Arrow Control", 0) == 1;
 
@@ -23,12 +23,6 @@ public class PlayerPrefManager : MonoBehaviour
         FRToggle.IsInvoking();
 
         print(PlayerPrefs.GetInt("Speed") + " get prefman");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SetPlayerPrefs()

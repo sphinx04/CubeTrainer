@@ -5,87 +5,30 @@ using UnityEngine;
 public class CubeManager : MonoBehaviour
 {
     public GameObject CubePievePref;
-    List<GameObject> AllCubePieces = new List<GameObject>();
-    GameObject CubeCenterPiece;
-    bool canRotate = true;
-    Quaternion defaultRotation;
-    bool turnToDefault;
-    bool isSolved = true;
-    public bool isScrambled;
-
     public int defaultRotationSpeed;
-    int currentRotationSpeed;
     public ReadCubeState RCS;
-    private float EPSILON = 0.001f;
     public CheckSolved checkSolved;
-    public Timer timer;
+
+    private List<GameObject> AllCubePieces = new List<GameObject>();
+    private GameObject CubeCenterPiece;
+    private bool canRotate = true;
+    private Quaternion defaultRotation;
+    private bool turnToDefault;
+    private bool isSolved = true;
+    private float EPSILON = 0.001f;
 
 
     #region Side Definition
 
-    List<GameObject> UpPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y) - 1) < EPSILON);
-        }
-    }
-    List<GameObject> MidEPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y)) < EPSILON);
-        }
-    }
-    List<GameObject> DownPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y) - -1) < EPSILON);
-        }
-    }
-    List<GameObject> FrontPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x) - 1) < EPSILON);
-        }
-    }
-    List<GameObject> MidSPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x)) < EPSILON);
-        }
-    }
-    List<GameObject> BackPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x) - -1) < EPSILON);
-        }
-    }
-    List<GameObject> LeftPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z) - -1) < EPSILON);
-        }
-    }
-    List<GameObject> MidMPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z)) < EPSILON);
-        }
-    }
-    List<GameObject> RightPieces
-    {
-        get
-        {
-            return AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z) - 1) < EPSILON);
-        }
-    }
+    List<GameObject> UpPieces       => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y) - 1)     < EPSILON);
+    List<GameObject> MidEPieces     => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y))         < EPSILON);
+    List<GameObject> DownPieces     => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.y) - -1)    < EPSILON);
+    List<GameObject> FrontPieces    => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x) - 1)     < EPSILON);
+    List<GameObject> MidSPieces     => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x))         < EPSILON);
+    List<GameObject> BackPieces     => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.x) - -1)    < EPSILON);
+    List<GameObject> LeftPieces     => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z) - -1)    < EPSILON);
+    List<GameObject> MidMPieces     => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z))         < EPSILON);
+    List<GameObject> RightPieces    => AllCubePieces.FindAll(x => System.Math.Abs(Mathf.Round(x.transform.localPosition.z) - 1)     < EPSILON);
 
     #endregion
 
@@ -98,13 +41,10 @@ public class CubeManager : MonoBehaviour
             {
                 piece = transform.GetChild(i).gameObject;
                 AllCubePieces.Add(piece);
-                //piece.GetComponent<CubePieceScr>().SetColor((int)piece.transform.localPosition.x, (int)piece.transform.localPosition.y, (int)piece.transform.localPosition.z);
-
             }
         }
         CubeCenterPiece = AllCubePieces[13];
         defaultRotation = transform.rotation;
-        //currentRotationSpeed = defaultRotationSpeed;
 
         SetDefaultRotationSpeed(PlayerPrefs.GetInt("Speed"));
 
@@ -116,12 +56,13 @@ public class CubeManager : MonoBehaviour
 
         if (canRotate)
         {
-            defaultRotationSpeed = currentRotationSpeed;
+            defaultRotationSpeed = CurrentRotationSpeed;
+            print("can");
         }
         if (Mathf.Abs(dist) > .1f && turnToDefault && canRotate)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, defaultRotation, .1f);
-            GetComponent<CameraMovement>().dragging = false;
+            GetComponent<CameraMovement>().SetDragging(false);
         }
         else
         {
@@ -130,53 +71,54 @@ public class CubeManager : MonoBehaviour
 
     }
 
-    public void SetCurrentRotationSpeed(int speed)
-    {
-        currentRotationSpeed = speed;
-    }
+    public int CurrentRotationSpeed { get; set; }
+
     public void SetDefaultRotationSpeed(float speed)
     {
         switch ((int)speed)
         {
             case 0:
-                currentRotationSpeed = 2;
+                CurrentRotationSpeed = 2;
                 break;
             case 1:
-                currentRotationSpeed = 5;
+                CurrentRotationSpeed = 5;
                 break;
             case 2:
-                currentRotationSpeed = 10;
+                CurrentRotationSpeed = 10;
                 break;
             case 3:
-                currentRotationSpeed = 15;
+                CurrentRotationSpeed = 15;
                 break;
             case 4:
-                currentRotationSpeed = 30;
+                CurrentRotationSpeed = 30;
                 break;
             case 90:
-                currentRotationSpeed = 90;
+                CurrentRotationSpeed = 90;
                 break;
         }
     }
 
-    public void TurnToDefault()
+    public void TurnToDefault() => StartCoroutine(WaitUntilCanRotate());
+
+    public bool CanRotate
     {
-        StartCoroutine(WaitUntilCanRotate());
+        get
+        {
+            return canRotate;
+        }
+        set
+        {
+            canRotate = value;
+        }
     }
 
-    public void SetCanRotate(bool canRotate)
-    {
-        this.canRotate = canRotate;
-    }
+    public void SetCanRotate(bool val) => canRotate = val;
 
-    public bool GetCanRotate()
-    {
-        return canRotate;
-    }
+    public bool GetCanRotate() => canRotate;
 
     IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1)
     {
-        SetCanRotate(false);
+        CanRotate = false;
         int angle = 0;    
 
         while (angle < 90 * count)
@@ -189,7 +131,7 @@ public class CubeManager : MonoBehaviour
             angle += defaultRotationSpeed;
             yield return null;
         }
-        SetCanRotate(true);
+        CanRotate = true;
 
         bool currSolved = RCS.IsSolved();
         if (currSolved && !isSolved)
@@ -203,9 +145,9 @@ public class CubeManager : MonoBehaviour
     public void CubeSolved()
     {
         checkSolved.Emit(1);
-        timer.PauseTimer();
-        timer.Disable();
-        SetCanRotate(false);
+        checkSolved.StopTimer();
+        StartCoroutine(checkSolved.ShowWinPanel());
+        CanRotate = false;
     }
 
     public IEnumerator TurnFromScramble(string[] sides)

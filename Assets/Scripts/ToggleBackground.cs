@@ -7,11 +7,6 @@ public class ToggleBackground : MonoBehaviour
 {
     public Sprite isOnSprite;
     public Sprite isOffSprite;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

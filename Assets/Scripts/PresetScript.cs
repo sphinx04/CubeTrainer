@@ -8,6 +8,7 @@ public class PresetScript : MonoBehaviour
     public CubeManager manager;
     public float delay = 1f;
     public int defaultSpeed;
+    int size = 50;
 
     private string[] notation;
     private string[] x;
@@ -15,8 +16,8 @@ public class PresetScript : MonoBehaviour
     private string[] z;
     private string value;
     private string note;
-    int size = 50;
 
+    public bool IsScrambled { get; set; }
 
     IEnumerator Start()
     {
@@ -24,23 +25,22 @@ public class PresetScript : MonoBehaviour
         y = new string[] { "U ", "U' ", "U2 ", "D ", "D' ", "D2 " };
         z = new string[] { "F ", "F' ", "F2 ", "B ", "B' ", "B2 " };
         notation = new string[size + 2]; //Size set to 27 because any less and I get a null reference error
-        text = setScramble();
+        text = SetScramble();
         print(text);
 
 
-        //string[] moves = text.ToUpper().Split(' ');
         string[] moves = text.ToUpper().Split(' ');
         yield return new WaitForSeconds(delay);
         manager.defaultRotationSpeed = defaultSpeed;
         StartCoroutine(manager.TurnFromScramble(moves));
         //manager.TurnFromDefaultScramble(moves);
         yield return new WaitUntil(() => manager.GetCanRotate());
-        manager.SetCanRotate(false);
-        manager.isScrambled = true;
+        manager.CanRotate = false;
+        IsScrambled = true;
     }
 
 
-    string setScramble()
+    string SetScramble()
     {
         for (int i = 0; i < size; i++)
         {
@@ -55,25 +55,21 @@ public class PresetScript : MonoBehaviour
                 break;
             i += 2;
         }
-        for (int i = 0; i < size; i++) //Adds each string to the end of the current string
-        {
+        for (int i = 0; i < size; i++)
             note += notation[i];
-        }
+
         return note;
     }
-    //Sets value for the X axis
     string setX()
     {
         value = x[Random.Range(0, 5)];
         return value;
     }
-    //Sets value for the Y axis
     string setY()
     {
         value = y[Random.Range(0, 5)];
         return value;
     }
-    //Sets value for the Z axis
     string setZ()
     {
         value = z[Random.Range(0, 5)];

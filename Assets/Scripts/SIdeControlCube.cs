@@ -6,7 +6,7 @@ public class SIdeControlCube : MonoBehaviour
 {
     public CubeManager manager;
     public CameraMovement cm;
-    bool canRotate = true;
+    private bool canRotate = true;
 
     List<GameObject> pieces = new List<GameObject>();
     List<GameObject> planes = new List<GameObject>();
@@ -50,11 +50,16 @@ public class SIdeControlCube : MonoBehaviour
         }
     }
 
-    void DetectRotate()
+    private bool DetectSwipe(string a, string b, string c)
     {
-        if (pieces[0].name == "UFL" && pieces[1].name == "UF" ||
-            pieces[0].name == "UFL" && pieces[1].name == "UFR" ||
-            pieces[0].name == "UF" && pieces[1].name == "UFR")
+        return  pieces[0].name == a && pieces[1].name == c ||
+                pieces[0].name == a && pieces[1].name == b ||
+                pieces[0].name == c && pieces[1].name == b;
+    }
+
+    private void DetectRotate() // x * d + x * y + d * y
+    {
+        if (DetectSwipe("UFL","UFR","UF"))
         {
             if (planes[0].name == "Front" && planes[1].name == "Front")
             {
@@ -66,6 +71,7 @@ public class SIdeControlCube : MonoBehaviour
                 manager.RotFront(1);
             }
         }
+
         else if (pieces[1].name == "UFL" && pieces[0].name == "UF" ||
             pieces[1].name == "UFL" && pieces[0].name == "UFR" ||
             pieces[1].name == "UF" && pieces[0].name == "UFR")
