@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -33,6 +34,12 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         SetSwipeControl(PlayerPrefs.GetInt("Free Rotation", 1) == 1);
+        string first = "abcdeabcde";
+        string second = "cdefgcdefg";
+
+        //string intersection = String.Concat(first.Intersect(second));
+        string result = string.Concat(first.Where(c => string.Concat(first.Intersect(second)).Contains(c)));
+        print(result); //output "cdecde"
     }
 
     private void Update()

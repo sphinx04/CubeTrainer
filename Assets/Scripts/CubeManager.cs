@@ -57,7 +57,6 @@ public class CubeManager : MonoBehaviour
         if (canRotate)
         {
             defaultRotationSpeed = CurrentRotationSpeed;
-            print("can");
         }
         if (Mathf.Abs(dist) > .1f && turnToDefault && canRotate)
         {
