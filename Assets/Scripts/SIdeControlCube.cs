@@ -98,12 +98,12 @@ public class SideControlCube : MonoBehaviour
                 case "Down":
                     if (DetectSwipe("DFL", "DFR")) manager.RotFront(-1);
                     else if (DetectSwipe("DFR", "DFL")) manager.RotFront(1);
-                    else if (DetectSwipe("DBL", "DBR")) manager.RotDown(-1);
-                    else if (DetectSwipe("DBR", "DBL")) manager.RotDown(1);
-                    else if (DetectSwipe("DFR", "DBR")) manager.RotBack(1);
-                    else if (DetectSwipe("DBR", "DFR")) manager.RotBack(-1);
-                    else if (DetectSwipe("DFL", "DBL")) manager.RotRight(-1);
-                    else if (DetectSwipe("DBL", "DFL")) manager.RotRight(1);
+                    else if (DetectSwipe("DBL", "DBR")) manager.RotBack(1);
+                    else if (DetectSwipe("DBR", "DBL")) manager.RotBack(-1);
+                    else if (DetectSwipe("DFR", "DBR")) manager.RotRight(-1);
+                    else if (DetectSwipe("DBR", "DFR")) manager.RotRight(1);
+                    else if (DetectSwipe("DFL", "DBL")) manager.RotLeft(1);
+                    else if (DetectSwipe("DBL", "DFL")) manager.RotLeft(-1);
                     break;
                 case "Left":
                     if (DetectSwipe("UFL", "UBL")) manager.RotUp(1);
