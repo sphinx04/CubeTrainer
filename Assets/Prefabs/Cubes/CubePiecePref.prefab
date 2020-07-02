@@ -63,6 +63,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -87,6 +88,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &5620749418326490242
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -213,7 +215,7 @@ PrefabInstance:
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
       propertyPath: m_Name
-      value: Up
+      value: U
       objectReference: {fileID: 0}
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
@@ -334,7 +336,7 @@ PrefabInstance:
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
       propertyPath: m_Name
-      value: Right
+      value: R
       objectReference: {fileID: 0}
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
@@ -460,7 +462,7 @@ PrefabInstance:
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
       propertyPath: m_Name
-      value: Front
+      value: F
       objectReference: {fileID: 0}
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
@@ -586,7 +588,7 @@ PrefabInstance:
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
       propertyPath: m_Name
-      value: Left
+      value: L
       objectReference: {fileID: 0}
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
@@ -712,7 +714,7 @@ PrefabInstance:
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
       propertyPath: m_Name
-      value: Down
+      value: D
       objectReference: {fileID: 0}
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
@@ -838,7 +840,7 @@ PrefabInstance:
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
       propertyPath: m_Name
-      value: Back
+      value: B
       objectReference: {fileID: 0}
     - target: {fileID: 8726670695708624711, guid: 204498554fe4b475b9d7e07c7578a231,
         type: 3}
