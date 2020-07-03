@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ReadCubeState : MonoBehaviour
 {
+    public bool IsUseAutoSolve;
     public Transform tUp;
     public Transform tDown;
     public Transform tLeft;
@@ -17,11 +18,15 @@ public class ReadCubeState : MonoBehaviour
     void Start()
     {
         tPoses.Add(tUp);
-        tPoses.Add(tDown);
-        tPoses.Add(tLeft);
         tPoses.Add(tRight);
         tPoses.Add(tFront);
+        tPoses.Add(tDown);
+        tPoses.Add(tLeft);
         tPoses.Add(tBack);
+        //if (IsUseAutoSolve)
+        //{
+        //    tUp.parent.SetParent(transform);
+        //}
     }
     void Update()
     {
@@ -34,12 +39,26 @@ public class ReadCubeState : MonoBehaviour
         foreach (Transform tSide in tPoses)
         {
             solved = solved && IsSideSolved(tSide);
-            //print(IsSideSolved(tSide));
+            //            print(IsSideSolved(tSide));
         }
         return solved;
     }
 
     bool IsSideSolved(Transform tSide)
+    {
+        List<GameObject> facesHit = GetSideString(tSide);
+
+        bool solved = true;
+        for (int i = 0; i < facesHit.Count - 1; i++)
+        {
+            //solved &= facesHit[facesHit.Count - 1].name == facesHit[i].name;
+            solved &= facesHit[facesHit.Count - 1].GetComponent<MeshRenderer>().material.name == facesHit[i].GetComponent<MeshRenderer>().material.name;
+            //print(facesHit[i].GetComponent<MeshRenderer>().material.name);
+        }
+        return solved;
+    }
+
+    private List<GameObject> GetSideString(Transform tSide)
     {
         List<GameObject> facesHit = new List<GameObject>();
         RaycastHit hit;
@@ -51,7 +70,7 @@ public class ReadCubeState : MonoBehaviour
                 Vector3 ray = tSide.GetChild(i).transform.position;
                 if (Physics.Raycast(ray, tSide.GetChild(i).right, out hit, Mathf.Infinity, layerMask))
                 {
-                    //Debug.DrawRay(ray, tSide.GetChild(i).right * hit.distance, Color.yellow);
+                    Debug.DrawRay(ray, tSide.GetChild(i).right * hit.distance, Color.yellow);
                     facesHit.Add(hit.collider.gameObject);
                     //print(hit.collider.gameObject.name);
                 }
@@ -61,20 +80,21 @@ public class ReadCubeState : MonoBehaviour
                 }
             }
         }
+        return facesHit;
+    }
 
-        bool solved = true;
-        for (int i = 0; i < facesHit.Count - 1; i++)
+    public string GetString()
+    {
+        string searchString = "";
+        foreach (Transform tSide in tPoses)
         {
-            solved &= facesHit[facesHit.Count - 1].name == facesHit[i].name;
+            List<GameObject> facesHit = GetSideString(tSide);
+            foreach (GameObject item in facesHit)
+            {
+                searchString += item.name;
+            }
         }
-        return solved;
-        //return facesHit[0].name == facesHit[1].name &&
-        //       facesHit[0].name == facesHit[2].name &&
-        //       facesHit[0].name == facesHit[3].name &&
-        //       facesHit[0].name == facesHit[4].name &&
-        //       facesHit[0].name == facesHit[5].name &&
-        //       facesHit[0].name == facesHit[6].name &&
-        //       facesHit[0].name == facesHit[7].name &&
-        //       facesHit[0].name == facesHit[8].name;
+        print(searchString);
+        return searchString;
     }
 }

@@ -8,6 +8,7 @@ public class CubeManager : MonoBehaviour
     public int defaultRotationSpeed;
     public ReadCubeState RCS;
     public CheckSolved checkSolved;
+    public bool isSolvable;
 
     private List<GameObject> AllCubePieces = new List<GameObject>();
     private GameObject CubeCenterPiece;
@@ -115,7 +116,22 @@ public class CubeManager : MonoBehaviour
 
     public bool GetCanRotate() => canRotate;
 
-    IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1)
+    IEnumerator RotateCube(Vector3 rotationVec, int count = 1)
+    {
+        CanRotate = false;
+        int angle = 0;
+
+        while (angle < 90 * count)
+        {
+                transform.RotateAround(CubeCenterPiece.transform.position, transform.rotation * rotationVec, defaultRotationSpeed);
+
+                angle += defaultRotationSpeed;
+                yield return null;
+        }
+        CanRotate = true;
+    }
+
+    IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1, List<Transform> rays = null)
     {
         CanRotate = false;
         int angle = 0;    
@@ -127,9 +143,17 @@ public class CubeManager : MonoBehaviour
                 go.transform.RotateAround(CubeCenterPiece.transform.position, transform.rotation * rotationVec, defaultRotationSpeed);
                 
             }
+            if (rays != null)
+            {
+                foreach (Transform ray in rays)
+                {
+                    //ray.RotateAround(CubeCenterPiece.transform.position, transform.rotation * rotationVec, defaultRotationSpeed);
+                }
+            }
             angle += defaultRotationSpeed;
             yield return null;
         }
+
         CanRotate = true;
 
         bool currSolved = RCS.IsSolved();
@@ -149,8 +173,10 @@ public class CubeManager : MonoBehaviour
         CanRotate = false;
     }
 
-    public IEnumerator TurnFromScramble(string[] sides)
+    public IEnumerator TurnFromScramble(string text)
     {
+        string[] sides = text.ToUpper().Split(' ');
+
         foreach (string side in sides)
         {
             TurnSide(side);
@@ -183,7 +209,17 @@ public class CubeManager : MonoBehaviour
     public void RotMidE(int dir = 1)
     {
         if (canRotate)
+        {
+            if (isSolvable)
+            {
+                RotDown(-dir);
+                canRotate = true;
+                RotUp(dir);
+                StartCoroutine(RotateCube(new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
+            }
+            else
             StartCoroutine(RotateSide(MidEPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
+        }
     }
     public void RotDown(int dir = 1)
     {
@@ -198,7 +234,17 @@ public class CubeManager : MonoBehaviour
     public void RotMidM(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(RotateSide(MidMPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
+        {
+            if (isSolvable)
+            {
+                RotLeft(-dir);
+                canRotate = true;
+                RotRight(dir);
+                StartCoroutine(RotateCube(new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
+            }
+            else
+                StartCoroutine(RotateSide(MidMPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)/*, rays*/));
+        }
     }
     public void RotRight(int dir = 1)
     {
@@ -213,7 +259,17 @@ public class CubeManager : MonoBehaviour
     public void RotMidS(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(RotateSide(MidSPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+        {
+            if (isSolvable)
+            {
+                RotBack(dir);
+                canRotate = true;
+                RotFront(-dir);
+                StartCoroutine(RotateCube(new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+            }
+            else
+                StartCoroutine(RotateSide(MidSPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)/*, rays*/));
+        }
     }
     public void RotBack(int dir = 1)
     {
@@ -224,17 +280,32 @@ public class CubeManager : MonoBehaviour
     public void RotX(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)));
+        {
+            if (isSolvable)
+                StartCoroutine(RotateCube(new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)));
+            else
+                StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)/*, rays*/));
+        }
     }
     public void RotY(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)));
+        {
+            if (isSolvable)
+                StartCoroutine(RotateCube(new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)));
+            else
+                StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)/*, rays*/));
+        }
     }
     public void RotZ(int dir = 1)
     {
         if (canRotate)
-            StartCoroutine(RotateSide(AllCubePieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+        {
+            if (isSolvable)
+                StartCoroutine(RotateCube(new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
+            else
+                StartCoroutine(RotateSide(AllCubePieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)/*, rays*/));
+        }
     }
 
 #endregion

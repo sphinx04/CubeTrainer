@@ -29,10 +29,10 @@ public class PresetScript : MonoBehaviour
         print(text);
 
 
-        string[] moves = text.ToUpper().Split(' ');
+        //string[] moves = text.ToUpper().Split(' ');
         yield return new WaitForSeconds(delay);
         manager.defaultRotationSpeed = defaultSpeed;
-        StartCoroutine(manager.TurnFromScramble(moves));
+        StartCoroutine(manager.TurnFromScramble(text));
         //manager.TurnFromDefaultScramble(moves);
         yield return new WaitUntil(() => manager.GetCanRotate());
         manager.CanRotate = false;
