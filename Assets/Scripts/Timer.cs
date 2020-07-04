@@ -26,8 +26,12 @@ public class Timer : MonoBehaviour
 
     public void StopTimer()
     {
-        PauseTimer();
-        time = 0f;
+        if (timerStarted && isEnabled)
+        {
+            PauseTimer();
+            time = 0f;
+            text.text = "0" + time.ToString("F2");
+        }
     }
 
     // Update is called once per frame

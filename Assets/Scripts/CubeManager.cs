@@ -9,6 +9,7 @@ public class CubeManager : MonoBehaviour
     public ReadCubeState RCS;
     public CheckSolved checkSolved;
     public bool isSolvable;
+    public bool sandboxMode;
 
     private List<GameObject> AllCubePieces = new List<GameObject>();
     private GameObject CubeCenterPiece;
@@ -157,7 +158,7 @@ public class CubeManager : MonoBehaviour
         CanRotate = true;
 
         bool currSolved = RCS.IsSolved();
-        if (currSolved && !isSolved)
+        if (currSolved && !isSolved && !sandboxMode)
         {
             CubeSolved();
         }

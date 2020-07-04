@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 375169301526784443, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1070949302475356384, guid: 99abbf2e690274be09839b0638a13799,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -27,10 +32,25 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1249644381491129664, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971679664107617690, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: willShuffle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995911390637786168, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4172497720534678777, guid: 99abbf2e690274be09839b0638a13799,
         type: 3}
       propertyPath: m_Name
-      value: CubeHolder (1)
+      value: CubeHolderSandbox Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4172497720534678778, guid: 99abbf2e690274be09839b0638a13799,
         type: 3}
@@ -106,6 +126,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830304042353079902, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: isSolvable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830304042353079902, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: sandboxMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807695636525142035, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99abbf2e690274be09839b0638a13799, type: 3}
