@@ -37,6 +37,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1730510299190117734, guid: 99abbf2e690274be09839b0638a13799,
+        type: 3}
+      propertyPath: thisCubePrefabIndex
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1971679664107617690, guid: 99abbf2e690274be09839b0638a13799,
         type: 3}
       propertyPath: willShuffle
