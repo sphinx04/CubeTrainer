@@ -31,6 +31,9 @@ public class CameraMovement : MonoBehaviour
     bool DownLeftSwipe => currentSwipe.x < 0 && currentSwipe.y < 0;
     bool DownRightSwipe => currentSwipe.x > 0 && currentSwipe.y < 0;
 
+
+    float distance;
+
     private void Start()
     {
         SetSwipeControl(PlayerPrefs.GetInt("Free Rotation", 1) == 1);
@@ -38,7 +41,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Input.touchCount < 2)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -85,6 +88,29 @@ public class CameraMovement : MonoBehaviour
             dragging = false;
             onCube = false;
         }
+
+        if (Input.touchCount > 1)
+        {
+            Vector2 touch0, touch1;
+            touch0 = Input.GetTouch(0).position;
+            touch1 = Input.GetTouch(1).position;
+            distance = Vector2.Distance(touch0, touch1);
+
+        }
+    }
+
+    void OnGUI()
+    {
+        int w = Screen.width, h = Screen.height;
+
+        GUIStyle style = new GUIStyle();
+
+        Rect rect = new Rect(110, 0, w, h * 2 / 100);
+        style.alignment = TextAnchor.UpperLeft;
+        style.fontSize = h * 2 / 100;
+        style.normal.textColor = new Color(0.7f, 0.7f, 0.0f, 1.0f);
+        string text = distance.ToString();
+        GUI.Label(rect, text, style);
     }
 
     private void FixedUpdate()

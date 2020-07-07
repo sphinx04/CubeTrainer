@@ -12,12 +12,19 @@ public class SolveCube : MonoBehaviour
 
     public void Solve()
     {
+        cm.ToDefaultKeyRotation();
+        StartCoroutine(FindSolution());
+    }
+
+    IEnumerator FindSolution()
+    {
+        yield return new WaitUntil(() => cm.CanRotate);
         string info = "";
         //string solution = SearchRunTime.solution(RCS.GetString(), out info, buildTables: true);
         string solution = Search.solution(RCS.GetString(), out info);
         //StartCoroutine(cm.TurnFromScramble(solution));
         solutionText.text = solution;
         print(solution);
-
+        yield return null;
     }
 }
