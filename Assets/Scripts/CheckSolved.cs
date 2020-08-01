@@ -30,7 +30,7 @@ public class CheckSolved : MonoBehaviour
         controlUI.SetActive(false);
     }
 
-    public IEnumerator ShowWinPanel()
+    public IEnumerator ShowWinPanel(int movesCount)
     {
         yield return new WaitForSeconds(0);
         //yield return new WaitUntil(()=> Input.GetMouseButtonDown(0));
@@ -38,9 +38,11 @@ public class CheckSolved : MonoBehaviour
         //winPanel.OpenCloseObjectAnimation();
         tapButton.SetActive(true);
 
-        if (timer.GetTime() < 10)
-            totalTime.text = "0" + timer.GetTime().ToString("F2");
-        else
-            totalTime.text = timer.GetTime().ToString("F2");
+        //if (timer.GetTime() < 10)
+        //    totalTime.text = "0" + timer.GetTime().ToString("F2");
+        //else
+        //    totalTime.text = timer.GetTime().ToString("F2");
+        totalTime.text = timer.GetTimerText;
+        totalMoves.text = movesCount.ToString();
     }
 }

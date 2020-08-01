@@ -498,6 +498,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1536873501770684434, guid: 376d3a9b924ed40c082228c9b7d8b50b,
+        type: 3}
+      propertyPath: animationParts.ObjectState
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1558312635824520208, guid: 376d3a9b924ed40c082228c9b7d8b50b,
         type: 3}
       propertyPath: m_Camera
@@ -656,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 1558312637252376129, guid: 376d3a9b924ed40c082228c9b7d8b50b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ToDefaultKeyRotation
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1558312637252376129, guid: 376d3a9b924ed40c082228c9b7d8b50b,
         type: 3}
@@ -1718,6 +1723,31 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7368579861533681930, guid: 376d3a9b924ed40c082228c9b7d8b50b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 186.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368579861533681930, guid: 376d3a9b924ed40c082228c9b7d8b50b,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368579861533681930, guid: 376d3a9b924ed40c082228c9b7d8b50b,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368579861533681930, guid: 376d3a9b924ed40c082228c9b7d8b50b,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368579861533681930, guid: 376d3a9b924ed40c082228c9b7d8b50b,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7370154419876026890, guid: 376d3a9b924ed40c082228c9b7d8b50b,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1812,6 +1842,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849069628887802758, guid: 376d3a9b924ed40c082228c9b7d8b50b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 8860266932210665452, guid: 376d3a9b924ed40c082228c9b7d8b50b,
         type: 3}

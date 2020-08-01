@@ -20,6 +20,7 @@ public class CubeManager : MonoBehaviour
     private bool isSolved = true;
     private float EPSILON = 0.001f;
     private CameraMovement _cameraMovement;
+    private int totalMoves;
 
 
     #region Side Definition
@@ -91,6 +92,8 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    public int TotalMoves { get => totalMoves; set => totalMoves = value; }
+
     public void SetCanRotate(bool val) => canRotate = val;
 
     public bool GetCanRotate() => canRotate;
@@ -153,6 +156,7 @@ public class CubeManager : MonoBehaviour
                 90f * count - angle);
         }
 
+        totalMoves += 1;
         CanRotate = true;
         
         bool currSolved = RCS.IsSolved();
@@ -169,7 +173,7 @@ public class CubeManager : MonoBehaviour
     {
         checkSolved.Emit(1);
         checkSolved.StopTimer();
-        StartCoroutine(checkSolved.ShowWinPanel());
+        StartCoroutine(checkSolved.ShowWinPanel(totalMoves));
         CanRotate = false;
     }
 
@@ -211,9 +215,7 @@ public class CubeManager : MonoBehaviour
     public void RotMidE(int dir = 1)
     {
         if (canRotate)
-        {
                 StartCoroutine(RotateSide(MidEPieces, new Vector3(0, -1 * dir, 0), Mathf.Abs(dir)));
-        }
     }
     public void RotDown(int dir = 1)
     {
@@ -228,9 +230,7 @@ public class CubeManager : MonoBehaviour
     public void RotMidM(int dir = 1)
     {
         if (canRotate)
-        {
-                StartCoroutine(RotateSide(MidMPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)/*, rays*/));
-        }
+            StartCoroutine(RotateSide(MidMPieces, new Vector3(0, 0, -1 * dir), Mathf.Abs(dir)));
     }
     public void RotRight(int dir = 1)
     {
@@ -245,36 +245,27 @@ public class CubeManager : MonoBehaviour
     public void RotMidS(int dir = 1)
     {
         if (canRotate)
-        {
-                StartCoroutine(RotateSide(MidSPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)/*, rays*/));
-        }
+            StartCoroutine(RotateSide(MidSPieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
     }
     public void RotBack(int dir = 1)
     {
         if (canRotate)
             StartCoroutine(RotateSide(BackPieces, new Vector3(-1 * dir, 0, 0), Mathf.Abs(dir)));
     }
-
     public void RotX(int dir = 1)
     {
         if (canRotate)
-        {
-                StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)/*, rays*/));
-        }
+           StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 0, 1 * dir), Mathf.Abs(dir)));
     }
     public void RotY(int dir = 1)
     {
         if (canRotate)
-        {
-                StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)/*, rays*/));
-        }
+           StartCoroutine(RotateSide(AllCubePieces, new Vector3(0, 1 * dir, 0), Mathf.Abs(dir)));
     }
     public void RotZ(int dir = 1)
     {
         if (canRotate)
-        {
-                StartCoroutine(RotateSide(AllCubePieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)/*, rays*/));
-        }
+           StartCoroutine(RotateSide(AllCubePieces, new Vector3(1 * dir, 0, 0), Mathf.Abs(dir)));
     }
 
 #endregion

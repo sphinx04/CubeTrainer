@@ -23,7 +23,7 @@ public class SolveCube : MonoBehaviour
         string solution = Search.solution(RCS.GetString(), out _);
         if (solution.Contains("Error"))
         {
-            solution = "ты че, дурак?"; //do smth
+            solution = "Invalid state of Cube"; //do smth
         }
         //else
             solutionText.text = solution;

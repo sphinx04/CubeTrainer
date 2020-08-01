@@ -44,6 +44,7 @@ public class PresetScript : MonoBehaviour
             //IsScrambled = true;
         }
         IsScrambled = true;
+        manager.TotalMoves = 0;
     }
 
 
