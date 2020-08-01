@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,4 +21,6 @@ public class CubeSpawner : MonoBehaviour
         GameObject cube = Instantiate(cubes[index]);
         cube.transform.SetParent(transform);
     }
+
+    public void Exit() => Application.Quit();
 }

@@ -152,7 +152,7 @@ public class SideControlCube : MonoBehaviour
     {
         pieceNames[1] = pieceNames[0];
         pieceNames[0] = pieceNames[0].Remove(pieceNames[0].IndexOf(planes[1].name.ToCharArray()[0]), 1);
-        planeNames[0] = planeNames[0];
+        //planeNames[0] = planeNames[0];
         planeNames[1] = planeNames[0];
         DetectInnerRotate();
     }

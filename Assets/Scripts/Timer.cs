@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     float time = 0;
     public bool isEnabled;
     bool timerStarted = true;
+    bool timerResumed = true;
 
     private void Start()
     {
@@ -16,7 +17,10 @@ public class Timer : MonoBehaviour
     }
     public void StartTimer() => timerStarted = true;
 
-    public void PauseTimer() => timerStarted = false;
+    public void PauseTimer() => timerResumed = false;
+
+    public void ResumeTimer() => timerResumed = timerStarted;
+
 
     public void Enable() => isEnabled = true;
 
@@ -28,16 +32,17 @@ public class Timer : MonoBehaviour
     {
         if (timerStarted && isEnabled)
         {
-            PauseTimer();
+            timerStarted = false;
             time = 0f;
             text.text = "0" + time.ToString("F2");
         }
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        if (timerStarted && isEnabled)
+        if (timerStarted && isEnabled && timerResumed)
         {
             time += Time.deltaTime;
             if(time < 10)

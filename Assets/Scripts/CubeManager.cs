@@ -10,6 +10,8 @@ public class CubeManager : MonoBehaviour
     public CheckSolved checkSolved;
     public bool sandboxMode;
 
+    public AnimationCurve easing;
+
     private List<GameObject> AllCubePieces = new List<GameObject>();
     private GameObject CubeCenterPiece;
     private bool canRotate = true;
@@ -74,32 +76,7 @@ public class CubeManager : MonoBehaviour
     }
 
     public int CurrentRotationSpeed { get; set; }
-
-    public void SetDefaultRotationSpeed(float speed)
-    {
-        switch ((int)speed)
-        {
-            case 0:
-                CurrentRotationSpeed = 2;
-                break;
-            case 1:
-                CurrentRotationSpeed = 5;
-                break;
-            case 2:
-                CurrentRotationSpeed = 10;
-                break;
-            case 3:
-                CurrentRotationSpeed = 15;
-                break;
-            case 4:
-                CurrentRotationSpeed = 30;
-                break;
-            case 90:
-                CurrentRotationSpeed = 90;
-                break;
-        }
-    }
-
+    public void SetDefaultRotationSpeed(float speed) => CurrentRotationSpeed = (int) speed;
     public void TurnToDefault() => StartCoroutine(WaitUntilCanRotate());
 
     public bool CanRotate
@@ -150,40 +127,34 @@ public class CubeManager : MonoBehaviour
         CanRotate = true;
     }
 
-    IEnumerator RotateCube(Vector3 rotationVec, int count = 1)
-    {
-        CanRotate = false;
-        int angle = 0;
-
-        while (angle < 90 * count)
-        {
-                transform.Rotate(rotationVec, defaultRotationSpeed);
-
-                angle += defaultRotationSpeed;
-                yield return null;
-        }
-        CanRotate = true;
-    }
-
     IEnumerator RotateSide(List<GameObject> pieces, Vector3 rotationVec, int count = 1)
     {
         CanRotate = false;
-        int angle = 0;
+        float angle = 0;
+        Vector3 point;
+        float deltaAngle = 0;
         
-        while (angle < 90 * count)
+        while (angle < 90f * count - deltaAngle)
         {
+            point = CubeCenterPiece.transform.position;
+            Vector3 axis = transform.rotation * rotationVec;
+            deltaAngle = defaultRotationSpeed * Time.deltaTime;
             foreach (GameObject go in pieces)
             {
-                go.transform.RotateAround(CubeCenterPiece.transform.position, transform.rotation * rotationVec,
-                    defaultRotationSpeed);
+                go.transform.RotateAround(point, axis, deltaAngle);
             }
-            angle += defaultRotationSpeed;
+            angle += deltaAngle;
             yield return null;
         }
-        
-        
-        CanRotate = true;
 
+        foreach (GameObject go in pieces)
+        {
+            go.transform.RotateAround(CubeCenterPiece.transform.position, transform.rotation * rotationVec,
+                90f * count - angle);
+        }
+
+        CanRotate = true;
+        
         bool currSolved = RCS.IsSolved();
         if (currSolved && !isSolved && !sandboxMode)
         {
@@ -214,6 +185,7 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+/*
     public void TurnFromDefaultScramble(string[] sides)
     {
         foreach (string side in sides)
@@ -221,6 +193,7 @@ public class CubeManager : MonoBehaviour
             TurnSide(side);
         }
     }
+*/
 
     IEnumerator WaitUntilCanRotate()
     {

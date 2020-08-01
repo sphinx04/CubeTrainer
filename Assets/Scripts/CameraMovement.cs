@@ -105,7 +105,7 @@ public class CameraMovement : MonoBehaviour
 
         GUIStyle style = new GUIStyle();
 
-        Rect rect = new Rect(110, 0, w, h * 2 / 100);
+        Rect rect = new Rect(110, 110, w, h * 2 / 100);
         style.alignment = TextAnchor.UpperLeft;
         style.fontSize = h * 2 / 100;
         style.normal.textColor = new Color(0.7f, 0.7f, 0.0f, 1.0f);
@@ -125,52 +125,3 @@ public class CameraMovement : MonoBehaviour
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//public float speed = 0.2f;
-//private Touch touch;
-//private Quaternion localRotation;
-
-//private void Start()
-//{
-//    localRotation.x = 225f / speed;
-//    localRotation.y = 30f / speed;
-//}
-
-//private void Update()
-//{
-//    if(Input.touchCount > 0)
-//    {
-//        touch = Input.GetTouch(0);
-
-//        if(touch.phase == TouchPhase.Moved)
-//        {
-//            localRotation.x += touch.deltaPosition.x;
-//            localRotation.y += -touch.deltaPosition.y;
-
-//            //localRotation.y = Mathf.Clamp(localRotation.y, -45 / speed, 45 / speed);
-//            //transform.rotation = Quaternion.Euler(localRotation.y * speed, localRotation.x * speed, 0f);
-//            transform.Rotate(new Vector3(localRotation.y, localRotation.x, -localRotation.y), .05f);
-//        }
-//    }
-//}
