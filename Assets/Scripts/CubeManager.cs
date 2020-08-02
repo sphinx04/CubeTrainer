@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CubeManager : MonoBehaviour
 {
+    public static CubeManager instance;
+
     public GameObject CubePiecePref;
     public int defaultRotationSpeed;
     public ReadCubeState RCS;
@@ -19,7 +21,6 @@ public class CubeManager : MonoBehaviour
     private bool turnToDefault;
     private bool isSolved = true;
     private float EPSILON = 0.001f;
-    private CameraMovement _cameraMovement;
     private int totalMoves;
 
 
@@ -37,6 +38,11 @@ public class CubeManager : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -52,7 +58,7 @@ public class CubeManager : MonoBehaviour
 
         SetDefaultRotationSpeed(PlayerPrefs.GetInt("Speed"));
 
-        _cameraMovement = GetComponent<CameraMovement>();
+        CameraMovement.instance = GetComponent<CameraMovement>();
 
     }
 
@@ -67,7 +73,7 @@ public class CubeManager : MonoBehaviour
         if (Mathf.Abs(dist) > .1f && turnToDefault && canRotate)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, defaultRotation, .1f);
-            _cameraMovement.SetDragging(false);
+            CameraMovement.instance.SetDragging(false);
         }
         else
         {

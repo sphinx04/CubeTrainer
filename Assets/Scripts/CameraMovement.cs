@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public CubeManager manager;
+    public static CameraMovement instance;
+
     public Rigidbody rb;
     public float rotationSpeed = 100f;
     public bool onCube = false;
@@ -14,9 +15,9 @@ public class CameraMovement : MonoBehaviour
     private Vector2 secondPressPos;
     private Vector2 currentSwipe;
 
-    public bool GetDragging() => dragging;
+    public bool GetDragging() => Dragging;
 
-    public void SetDragging(bool value) => dragging = value;
+    public void SetDragging(bool value) => Dragging = value;
 
     private bool swipeControl;
 
@@ -31,9 +32,14 @@ public class CameraMovement : MonoBehaviour
     bool DownLeftSwipe => currentSwipe.x < 0 && currentSwipe.y < 0;
     bool DownRightSwipe => currentSwipe.x > 0 && currentSwipe.y < 0;
 
+    public bool Dragging { get => dragging; set => dragging = value; }
 
     float distance;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         SetSwipeControl(PlayerPrefs.GetInt("Free Rotation", 1) == 1);
@@ -49,18 +55,18 @@ public class CameraMovement : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100))
             {
                 onCube = true;
-                dragging = false;
+                Dragging = false;
             }
 
             else
             {
-                dragging = true;
+                Dragging = true;
                 firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
-            if (dragging && GetSwipeControl())
+            if (Dragging && GetSwipeControl())
             {
                 secondPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                 //Debug.Log(secondPressPos);
@@ -68,24 +74,24 @@ public class CameraMovement : MonoBehaviour
                 currentSwipe.Normalize();
 
                 if (LeftSwipe)
-                    manager.RotY(1);
+                    CubeManager.instance.RotY(1);
 
                 else if (RightSwipe)
-                    manager.RotY(-1);
+                    CubeManager.instance.RotY(-1);
 
                 else if (UpLeftSwipe)
-                    manager.RotZ(-1);
+                    CubeManager.instance.RotZ(-1);
 
                 else if (UpRightSwipe)
-                    manager.RotX(1);
+                    CubeManager.instance.RotX(1);
 
                 else if (DownLeftSwipe)
-                    manager.RotX(-1);
+                    CubeManager.instance.RotX(-1);
 
                 else if (DownRightSwipe)
-                    manager.RotZ(1);
+                    CubeManager.instance.RotZ(1);
             }
-            dragging = false;
+            Dragging = false;
             onCube = false;
         }
 
@@ -115,7 +121,7 @@ public class CameraMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (dragging && !onCube && !GetSwipeControl())
+        if (Dragging && !onCube && !GetSwipeControl())
         {
             float x = Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
             float y = Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;

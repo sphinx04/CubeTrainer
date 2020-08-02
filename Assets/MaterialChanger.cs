@@ -39,7 +39,7 @@ public class MaterialChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0) && canPaint)
+        if (Input.GetMouseButton(0) && canPaint && !CameraMovement.instance.Dragging)
         {
             int layerMask = LayerMask.GetMask("CubeFaces");
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);

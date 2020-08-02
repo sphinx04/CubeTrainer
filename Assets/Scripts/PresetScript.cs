@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PresetScript : MonoBehaviour
 {
-    public CubeManager manager;
     public float delay = 1f;
     public int defaultSpeed;
     public int shuffleSize = 20;
@@ -33,18 +32,18 @@ public class PresetScript : MonoBehaviour
 
             //string[] moves = text.ToUpper().Split(' ');
             yield return new WaitForSeconds(delay);
-            manager.defaultRotationSpeed = defaultSpeed;
-            manager.sandboxMode = true;
-            StartCoroutine(manager.TurnFromScramble(text));
+            CubeManager.instance.defaultRotationSpeed = defaultSpeed;
+            CubeManager.instance.sandboxMode = true;
+            StartCoroutine(CubeManager.instance.TurnFromScramble(text));
             //manager.TurnFromDefaultScramble(moves);
-            yield return new WaitUntil(() => manager.GetCanRotate());
-            manager.CanRotate = false;
-            manager.sandboxMode = false;
+            yield return new WaitUntil(() => CubeManager.instance.GetCanRotate());
+            CubeManager.instance.CanRotate = false;
+            CubeManager.instance.sandboxMode = false;
 
             //IsScrambled = true;
         }
         IsScrambled = true;
-        manager.TotalMoves = 0;
+        CubeManager.instance.TotalMoves = 0;
     }
 
 

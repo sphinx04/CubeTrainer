@@ -3750,7 +3750,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1373393215}
   - component: {fileID: 1373393217}
-  - component: {fileID: 1373393216}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3772,14 +3771,6 @@ Transform:
   m_Father: {fileID: 1323416746}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1373393216
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1373393214}
-  m_Enabled: 1
 --- !u!20 &1373393217
 Camera:
   m_ObjectHideFlags: 0
@@ -5332,7 +5323,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CubeSpawner, Assembly-CSharp
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3731028986993125032, guid: 6d014c6cd005a4a79aa5b39e6d910158, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6d014c6cd005a4a79aa5b39e6d910158, type: 3}
 --- !u!1001 &4931586368351651046
 PrefabInstance:

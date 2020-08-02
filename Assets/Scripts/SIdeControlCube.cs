@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class SideControlCube : MonoBehaviour
 {
-    public CubeManager manager;
-    public CameraMovement cm;
     private bool canRotate = true;
 
     List<GameObject> pieces = new List<GameObject>();
@@ -39,7 +37,7 @@ public class SideControlCube : MonoBehaviour
                     pieceNames.Add(hit.collider.transform.parent.gameObject.name);
                     planeNames.Add(hit.collider.gameObject.name);
                 }
-                else if (pieces.Count == 2 && cm.onCube && canRotate)
+                else if (pieces.Count == 2 && CameraMovement.instance.onCube && canRotate)
                 {
                     DetectRotate();
                     pieces.Clear();
@@ -78,75 +76,75 @@ public class SideControlCube : MonoBehaviour
         switch (planeNames[0])
         {
             case "F":
-                if (DetectSwipe("UFL", "UFR")) manager.RotUp(-1);
-                else if (DetectSwipe("UFR", "UFL")) manager.RotUp(1);
-                else if (DetectSwipe("DFL", "DFR")) manager.RotDown(1);
-                else if (DetectSwipe("DFR", "DFL")) manager.RotDown(-1);
-                else if (DetectSwipe("UFR", "DFR")) manager.RotRight(-1);
-                else if (DetectSwipe("DFR", "UFR")) manager.RotRight(1);
-                else if (DetectSwipe("UFL", "DFL")) manager.RotLeft(1);
-                else if (DetectSwipe("DFL", "UFL")) manager.RotLeft(-1);
+                if (DetectSwipe("UFL", "UFR")) CubeManager.instance.RotUp(-1);
+                else if (DetectSwipe("UFR", "UFL")) CubeManager.instance.RotUp(1);
+                else if (DetectSwipe("DFL", "DFR")) CubeManager.instance.RotDown(1);
+                else if (DetectSwipe("DFR", "DFL")) CubeManager.instance.RotDown(-1);
+                else if (DetectSwipe("UFR", "DFR")) CubeManager.instance.RotRight(-1);
+                else if (DetectSwipe("DFR", "UFR")) CubeManager.instance.RotRight(1);
+                else if (DetectSwipe("UFL", "DFL")) CubeManager.instance.RotLeft(1);
+                else if (DetectSwipe("DFL", "UFL")) CubeManager.instance.RotLeft(-1);
                 break;
             case "B":
-                if (DetectSwipe("UBL", "UBR")) manager.RotUp(1);
-                else if (DetectSwipe("UBR", "UBL")) manager.RotUp(-1);
-                else if (DetectSwipe("DBL", "DBR")) manager.RotDown(-1);
-                else if (DetectSwipe("DBR", "DBL")) manager.RotDown(1);
-                else if (DetectSwipe("UBR", "DBR")) manager.RotRight(1);
-                else if (DetectSwipe("DBR", "UBR")) manager.RotRight(-1);
-                else if (DetectSwipe("UBL", "DBL")) manager.RotLeft(-1);
-                else if (DetectSwipe("DBL", "UBL")) manager.RotLeft(1);
+                if (DetectSwipe("UBL", "UBR")) CubeManager.instance.RotUp(1);
+                else if (DetectSwipe("UBR", "UBL")) CubeManager.instance.RotUp(-1);
+                else if (DetectSwipe("DBL", "DBR")) CubeManager.instance.RotDown(-1);
+                else if (DetectSwipe("DBR", "DBL")) CubeManager.instance.RotDown(1);
+                else if (DetectSwipe("UBR", "DBR")) CubeManager.instance.RotRight(1);
+                else if (DetectSwipe("DBR", "UBR")) CubeManager.instance.RotRight(-1);
+                else if (DetectSwipe("UBL", "DBL")) CubeManager.instance.RotLeft(-1);
+                else if (DetectSwipe("DBL", "UBL")) CubeManager.instance.RotLeft(1);
                 break;
             case "U":
-                if (DetectSwipe("UFL", "UFR")) manager.RotFront(1);
-                else if (DetectSwipe("UFR", "UFL")) manager.RotFront(-1);
-                else if (DetectSwipe("UBL", "UBR")) manager.RotBack(-1);
-                else if (DetectSwipe("UBR", "UBL")) manager.RotBack(1);
-                else if (DetectSwipe("UFR", "UBR")) manager.RotRight(1);
-                else if (DetectSwipe("UBR", "UFR")) manager.RotRight(-1);
-                else if (DetectSwipe("UFL", "UBL")) manager.RotLeft(-1);
-                else if (DetectSwipe("UBL", "UFL")) manager.RotLeft(1);
+                if (DetectSwipe("UFL", "UFR")) CubeManager.instance.RotFront(1);
+                else if (DetectSwipe("UFR", "UFL")) CubeManager.instance.RotFront(-1);
+                else if (DetectSwipe("UBL", "UBR")) CubeManager.instance.RotBack(-1);
+                else if (DetectSwipe("UBR", "UBL")) CubeManager.instance.RotBack(1);
+                else if (DetectSwipe("UFR", "UBR")) CubeManager.instance.RotRight(1);
+                else if (DetectSwipe("UBR", "UFR")) CubeManager.instance.RotRight(-1);
+                else if (DetectSwipe("UFL", "UBL")) CubeManager.instance.RotLeft(-1);
+                else if (DetectSwipe("UBL", "UFL")) CubeManager.instance.RotLeft(1);
                 break;
             case "D":
-                if (DetectSwipe("DFL", "DFR")) manager.RotFront(-1);
-                else if (DetectSwipe("DFR", "DFL")) manager.RotFront(1);
-                else if (DetectSwipe("DBL", "DBR")) manager.RotBack(1);
-                else if (DetectSwipe("DBR", "DBL")) manager.RotBack(-1);
-                else if (DetectSwipe("DFR", "DBR")) manager.RotRight(-1);
-                else if (DetectSwipe("DBR", "DFR")) manager.RotRight(1);
-                else if (DetectSwipe("DFL", "DBL")) manager.RotLeft(1);
-                else if (DetectSwipe("DBL", "DFL")) manager.RotLeft(-1);
+                if (DetectSwipe("DFL", "DFR")) CubeManager.instance.RotFront(-1);
+                else if (DetectSwipe("DFR", "DFL")) CubeManager.instance.RotFront(1);
+                else if (DetectSwipe("DBL", "DBR")) CubeManager.instance.RotBack(1);
+                else if (DetectSwipe("DBR", "DBL")) CubeManager.instance.RotBack(-1);
+                else if (DetectSwipe("DFR", "DBR")) CubeManager.instance.RotRight(-1);
+                else if (DetectSwipe("DBR", "DFR")) CubeManager.instance.RotRight(1);
+                else if (DetectSwipe("DFL", "DBL")) CubeManager.instance.RotLeft(1);
+                else if (DetectSwipe("DBL", "DFL")) CubeManager.instance.RotLeft(-1);
                 break;
             case "L":
-                if (DetectSwipe("UFL", "UBL")) manager.RotUp(1);
-                else if (DetectSwipe("UBL", "UFL")) manager.RotUp(-1);
-                else if (DetectSwipe("DFL", "DBL")) manager.RotDown(-1);
-                else if (DetectSwipe("DBL", "DFL")) manager.RotDown(1);
-                else if (DetectSwipe("UFL", "DFL")) manager.RotFront(-1);
-                else if (DetectSwipe("DFL", "UFL")) manager.RotFront(1);
-                else if (DetectSwipe("UBL", "DBL")) manager.RotBack(1);
-                else if (DetectSwipe("DBL", "UBL")) manager.RotBack(-1);
+                if (DetectSwipe("UFL", "UBL")) CubeManager.instance.RotUp(1);
+                else if (DetectSwipe("UBL", "UFL")) CubeManager.instance.RotUp(-1);
+                else if (DetectSwipe("DFL", "DBL")) CubeManager.instance.RotDown(-1);
+                else if (DetectSwipe("DBL", "DFL")) CubeManager.instance.RotDown(1);
+                else if (DetectSwipe("UFL", "DFL")) CubeManager.instance.RotFront(-1);
+                else if (DetectSwipe("DFL", "UFL")) CubeManager.instance.RotFront(1);
+                else if (DetectSwipe("UBL", "DBL")) CubeManager.instance.RotBack(1);
+                else if (DetectSwipe("DBL", "UBL")) CubeManager.instance.RotBack(-1);
                 break;
             case "R":
-                if (DetectSwipe("UFR", "UBR")) manager.RotUp(-1);
-                else if (DetectSwipe("UBR", "UFR")) manager.RotUp(1);
-                else if (DetectSwipe("DFR", "DBR")) manager.RotDown(1);
-                else if (DetectSwipe("DBR", "DFR")) manager.RotDown(-1);
-                else if (DetectSwipe("UFR", "DFR")) manager.RotFront(1);
-                else if (DetectSwipe("DFR", "UFR")) manager.RotFront(-1);
-                else if (DetectSwipe("UBR", "DBR")) manager.RotBack(-1);
-                else if (DetectSwipe("DBR", "UBR")) manager.RotBack(1);
+                if (DetectSwipe("UFR", "UBR")) CubeManager.instance.RotUp(-1);
+                else if (DetectSwipe("UBR", "UFR")) CubeManager.instance.RotUp(1);
+                else if (DetectSwipe("DFR", "DBR")) CubeManager.instance.RotDown(1);
+                else if (DetectSwipe("DBR", "DFR")) CubeManager.instance.RotDown(-1);
+                else if (DetectSwipe("UFR", "DFR")) CubeManager.instance.RotFront(1);
+                else if (DetectSwipe("DFR", "UFR")) CubeManager.instance.RotFront(-1);
+                else if (DetectSwipe("UBR", "DBR")) CubeManager.instance.RotBack(-1);
+                else if (DetectSwipe("DBR", "UBR")) CubeManager.instance.RotBack(1);
                 break;
             default:
                 break;
         }
 
-        if (DetectSwipe("UL", "UR") || DetectSwipe("DR", "DL") || DetectSwipe("UR", "DR") || DetectSwipe("DL", "UL")) manager.RotMidS(1);
-        else if (DetectSwipe("UR", "UL") || DetectSwipe("DL", "DR") || DetectSwipe("DR", "UR") || DetectSwipe("UL", "DL")) manager.RotMidS(-1);
-        else if (DetectSwipe("FL", "FR") || DetectSwipe("BR", "BL") || DetectSwipe("FR", "BR") || DetectSwipe("BL", "FL")) manager.RotMidE(1);
-        else if (DetectSwipe("FR", "FL") || DetectSwipe("BL", "BR") || DetectSwipe("BR", "FR") || DetectSwipe("FL", "BL")) manager.RotMidE(-1);
-        else if (DetectSwipe("UF", "DF") || DetectSwipe("DB", "UB") || DetectSwipe("UB", "UF") || DetectSwipe("DF", "DB")) manager.RotMidM(1);
-        else if (DetectSwipe("DB", "DF") || DetectSwipe("DF", "UF") || DetectSwipe("UB", "DB") || DetectSwipe("UF", "UB")) manager.RotMidM(-1);
+        if (DetectSwipe("UL", "UR") || DetectSwipe("DR", "DL") || DetectSwipe("UR", "DR") || DetectSwipe("DL", "UL")) CubeManager.instance.RotMidS(1);
+        else if (DetectSwipe("UR", "UL") || DetectSwipe("DL", "DR") || DetectSwipe("DR", "UR") || DetectSwipe("UL", "DL")) CubeManager.instance.RotMidS(-1);
+        else if (DetectSwipe("FL", "FR") || DetectSwipe("BR", "BL") || DetectSwipe("FR", "BR") || DetectSwipe("BL", "FL")) CubeManager.instance.RotMidE(1);
+        else if (DetectSwipe("FR", "FL") || DetectSwipe("BL", "BR") || DetectSwipe("BR", "FR") || DetectSwipe("FL", "BL")) CubeManager.instance.RotMidE(-1);
+        else if (DetectSwipe("UF", "DF") || DetectSwipe("DB", "UB") || DetectSwipe("UB", "UF") || DetectSwipe("DF", "DB")) CubeManager.instance.RotMidM(1);
+        else if (DetectSwipe("DB", "DF") || DetectSwipe("DF", "UF") || DetectSwipe("UB", "DB") || DetectSwipe("UF", "UB")) CubeManager.instance.RotMidM(-1);
     }
     private void DetectEdgeRotate()
     {

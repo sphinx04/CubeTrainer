@@ -7,19 +7,18 @@ using UnityEngine.UI;
 public class SolveCube : MonoBehaviour
 {
     public ReadCubeState RCS;
-    public CubeManager cm;
     public InputField solutionText;
 
     public void Solve()
     {
-        cm.ToDefaultKeyRotation();
-        cm.TurnToDefault();
+        CubeManager.instance.ToDefaultKeyRotation();
+        CubeManager.instance.TurnToDefault();
         StartCoroutine(FindSolution());
     }
 
     IEnumerator FindSolution()
     {
-        yield return new WaitUntil(() => cm.CanRotate);
+        yield return new WaitUntil(() => CubeManager.instance.CanRotate);
         string solution = Search.solution(RCS.GetString(), out _);
         if (solution.Contains("Error"))
         {
