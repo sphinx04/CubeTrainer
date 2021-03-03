@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class SolveCube : MonoBehaviour
 {
-    public ReadCubeState RCS;
     public InputField solutionText;
 
     public void Solve()
@@ -19,7 +18,7 @@ public class SolveCube : MonoBehaviour
     IEnumerator FindSolution()
     {
         yield return new WaitUntil(() => CubeManager.instance.CanRotate);
-        string solution = Search.solution(RCS.GetString(), out _);
+        string solution = Search.solution(ReadCubeState.instance.GetString(), out _);
         if (solution.Contains("Error"))
         {
             solution = "Invalid state of Cube"; //do smth

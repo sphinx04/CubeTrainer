@@ -6,9 +6,9 @@ public class CubeManager : MonoBehaviour
 {
     public static CubeManager instance;
 
-    public GameObject CubePiecePref;
+    public GameObject ControlUI;
+    public GameObject SideControl;
     public int defaultRotationSpeed;
-    public ReadCubeState RCS;
     public CheckSolved checkSolved;
     public bool sandboxMode;
 
@@ -165,12 +165,12 @@ public class CubeManager : MonoBehaviour
         totalMoves += 1;
         CanRotate = true;
         
-        bool currSolved = RCS.IsSolved();
+        bool currSolved = ReadCubeState.instance.IsSolved();
         if (currSolved && !isSolved && !sandboxMode)
         {
             CubeSolved();
         }
-        isSolved = RCS.IsSolved();
+        isSolved = ReadCubeState.instance.IsSolved();
 
     }
     

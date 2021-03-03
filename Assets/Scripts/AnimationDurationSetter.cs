@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AnimationDurationSetter : MonoBehaviour
 {
-    public PresetScript presetScript;
     Animator animator;
     // Start is called before the first frame update
 
@@ -22,7 +21,7 @@ public class AnimationDurationSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (presetScript.IsScrambled)
+        if (PresetScript.instance.IsScrambled)
         {
             ExitAnimation();
         }

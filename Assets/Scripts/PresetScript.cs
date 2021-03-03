@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PresetScript : MonoBehaviour
 {
+    public static PresetScript instance;
+
     public float delay = 1f;
     public int defaultSpeed;
     public int shuffleSize = 20;
@@ -17,6 +19,11 @@ public class PresetScript : MonoBehaviour
     private string note;
 
     public bool IsScrambled { get; set; }
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     IEnumerator Start()
     {

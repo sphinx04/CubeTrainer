@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ReadCubeState : MonoBehaviour
 {
+    public static ReadCubeState instance;
+
     public bool IsUseAutoSolve;
     public Transform tUp;
     public Transform tDown;
@@ -14,6 +16,11 @@ public class ReadCubeState : MonoBehaviour
 
     private List<Transform> tPoses = new List<Transform>();
     private int layerMask = 1 << 9;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
